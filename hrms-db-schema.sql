@@ -1,162 +1,88 @@
 DROP SCHEMA public CASCADE;
-CREATE SCHEMA public; 
+CREATE SCHEMA public;
 
 CREATE TABLE public.users
 (
-    id integer NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     email character varying(50) NOT NULL,
     password character varying(60) NOT NULL,
-    PRIMARY KEY (id)
+    is_active boolean NOT NULL,
+    created_date date NOT NULL,
+    CONSTRAINT pk_users PRIMARY KEY (id),
+    CONSTRAINT uc_users_email UNIQUE (email)
 );
 
 CREATE TABLE public.candidates
 (
-    user_id integer NOT NULL,
+    id integer NOT NULL,
     identity_number character(11) NOT NULL,
     first_name character varying(25) NOT NULL,
     last_name character varying(25) NOT NULL,
     date_of_birth date NOT NULL,
-    PRIMARY KEY (user_id)
+    CONSTRAINT pk_candidates PRIMARY KEY (id),
+    CONSTRAINT fk_candidates_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE,
+    CONSTRAINT uc_candidates_identity_number UNIQUE (identity_number)
 );
 
 CREATE TABLE public.employers
 (
-    user_id integer NOT NULL,
+    id integer NOT NULL,
     company_name character varying(255) NOT NULL,
     web_page character varying(50) NOT NULL,
     phone character varying(12) NOT NULL,
-    PRIMARY KEY (user_id)
+    CONSTRAINT pk_employers PRIMARY KEY (id),
+    CONSTRAINT fk_employers_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE,
+    CONSTRAINT uc_employers_phone UNIQUE (phone)
 );
 
 CREATE TABLE public.staffs
 (
-    user_id integer NOT NULL,
+    id integer NOT NULL,
     first_name character varying(25) NOT NULL,
     last_name character varying(25) NOT NULL,
-    PRIMARY KEY (user_id)
+    CONSTRAINT pk_staffs PRIMARY KEY (id),
+    CONSTRAINT fk_staffs_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE public.confirmations
+CREATE TABLE public.verification_codes
 (
-    id integer NOT NULL,
-    is_confirmed boolean NOT NULL,
-    confirmed_date date NOT NULL,
-    PRIMARY KEY (id)
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    user_id integer NOT NULL,
+    code character varying(38) NOT NULL,
+    is_verified boolean DEFAULT false NOT NULL,
+    is_active boolean NOT NULL,
+    created_date date NOT NULL,
+    CONSTRAINT pk_verification_codes PRIMARY KEY (id),
+    CONSTRAINT fk_verification_codes_users FOREIGN KEY (user_id) REFERENCES public.users (id) ON DELETE CASCADE,
+    CONSTRAINT uc_verification_codes_code UNIQUE (code)
 );
 
 CREATE TABLE public.staff_confirmations
 (
-    confirmation_id integer NOT NULL,
-    staff_id integer NOT NULL,
-    employer_id integer NOT NULL,
-    PRIMARY KEY (confirmation_id)
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    staff_id int NOT NULL,
+    is_confirmed boolean DEFAULT false NOT NULL,
+    is_active boolean NOT NULL,
+    created_date date NOT NULL,
+    CONSTRAINT pk_staff_confirmations PRIMARY KEY (id),
+    CONSTRAINT fk_staff_confirmations_staffs FOREIGN KEY (staff_id) REFERENCES public.staffs (id) ON DELETE CASCADE
 );
 
-CREATE TABLE public.email_confirmations
+CREATE TABLE public.staff_confirmations_employer
 (
-    confirmation_id integer NOT NULL,
-    code character(10) NOT NULL,
-    PRIMARY KEY (confirmation_id)
-);
-
-CREATE TABLE public.candidate_email_confirmations
-(
-    email_confirmation_id integer NOT NULL,
-    candidate_id integer NOT NULL,
-    PRIMARY KEY (email_confirmation_id)
-);
-
-CREATE TABLE public.employer_email_confirmations
-(
-    email_confirmation_id integer NOT NULL,
-    employer_id integer NOT NULL,
-    PRIMARY KEY (email_confirmation_id)
+    id integer NOT NULL,
+    employer_id int NOT NULL,
+    CONSTRAINT pk_staff_confirmations_employer PRIMARY KEY (id),
+    CONSTRAINT fk_staff_confirmations_employer_staff_confirmations FOREIGN KEY (id) REFERENCES public.staff_confirmations (id) ON DELETE CASCADE,
+    CONSTRAINT fk_staff_confirmations_employer_employers FOREIGN KEY (employer_id) REFERENCES public.employers (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.job_positions
 (
-    id integer NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     name character varying(50) NOT NULL,
-    PRIMARY KEY (id)
+    is_active boolean NOT NULL,
+    created_date date NOT NULL,
+    CONSTRAINT pk_job_positions PRIMARY KEY (id),
+    CONSTRAINT uc_job_positions_name UNIQUE (name)
 );
-
-ALTER TABLE public.users
-    ADD CONSTRAINT "uk_users"
-    UNIQUE ("email");
-
-
-ALTER TABLE public.candidates
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (id)
-    NOT VALID;
-
-
-ALTER TABLE public.candidates
-    ADD CONSTRAINT "uk_candidates"
-    UNIQUE ("identity_number");
-
-
-ALTER TABLE public.employers
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (id)
-    NOT VALID;
-
-
-ALTER TABLE public.employers
-    ADD CONSTRAINT "uk_employers"
-    UNIQUE ("phone");
-
-
-ALTER TABLE public.staffs
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (id)
-    NOT VALID;
-
-
-ALTER TABLE public.email_confirmations
-    ADD FOREIGN KEY (confirmation_id)
-    REFERENCES public.confirmations (id)
-    NOT VALID;
-
-
-ALTER TABLE public.staff_confirmations
-    ADD FOREIGN KEY (confirmation_id)
-    REFERENCES public.confirmations (id)
-    NOT VALID;
-
-
-ALTER TABLE public.candidate_email_confirmations
-    ADD FOREIGN KEY (email_confirmation_id)
-    REFERENCES public.email_confirmations (confirmation_id)
-    NOT VALID;
-
-
-ALTER TABLE public.candidate_email_confirmations
-    ADD FOREIGN KEY (candidate_id)
-    REFERENCES public.candidates (user_id)
-    NOT VALID;
-
-
-ALTER TABLE public.employer_email_confirmations
-    ADD FOREIGN KEY (email_confirmation_id)
-    REFERENCES public.email_confirmations (confirmation_id)
-    NOT VALID;
-
-
-ALTER TABLE public.employer_email_confirmations
-    ADD FOREIGN KEY (employer_id)
-    REFERENCES public.employers (user_id)
-    NOT VALID;
-
-
-ALTER TABLE public.staff_confirmations
-    ADD FOREIGN KEY (staff_id)
-    REFERENCES public.staffs (user_id)
-    NOT VALID;
-
-
-ALTER TABLE public.staff_confirmations
-    ADD FOREIGN KEY (employer_id)
-    REFERENCES public.employers (user_id)
-    NOT VALID;
-    
