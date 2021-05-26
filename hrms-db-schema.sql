@@ -6,8 +6,8 @@ CREATE TABLE public.users
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     email character varying(50) NOT NULL,
     password character varying(60) NOT NULL,
-    is_active boolean NOT NULL,
-    created_date date NOT NULL,
+    is_active boolean DEFAULT false NOT NULL,
+    created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_users PRIMARY KEY (id),
     CONSTRAINT uc_users_email UNIQUE (email)
 );
@@ -18,7 +18,7 @@ CREATE TABLE public.candidates
     identity_number character(11) NOT NULL,
     first_name character varying(25) NOT NULL,
     last_name character varying(25) NOT NULL,
-    date_of_birth date NOT NULL,
+    year_of_birth character(4) NOT NULL,
     CONSTRAINT pk_candidates PRIMARY KEY (id),
     CONSTRAINT fk_candidates_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE,
     CONSTRAINT uc_candidates_identity_number UNIQUE (identity_number)
@@ -51,7 +51,7 @@ CREATE TABLE public.verification_codes
     code character varying(38) NOT NULL,
     is_verified boolean DEFAULT false NOT NULL,
     is_active boolean NOT NULL,
-    created_date date NOT NULL,
+    created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_verification_codes PRIMARY KEY (id),
     CONSTRAINT fk_verification_codes_users FOREIGN KEY (user_id) REFERENCES public.users (id) ON DELETE CASCADE,
     CONSTRAINT uc_verification_codes_code UNIQUE (code)
@@ -63,7 +63,7 @@ CREATE TABLE public.staff_confirmations
     staff_id int NOT NULL,
     is_confirmed boolean DEFAULT false NOT NULL,
     is_active boolean NOT NULL,
-    created_date date NOT NULL,
+    created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_staff_confirmations PRIMARY KEY (id),
     CONSTRAINT fk_staff_confirmations_staffs FOREIGN KEY (staff_id) REFERENCES public.staffs (id) ON DELETE CASCADE
 );
@@ -82,7 +82,7 @@ CREATE TABLE public.job_positions
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     name character varying(50) NOT NULL,
     is_active boolean NOT NULL,
-    created_date date NOT NULL,
+    created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_job_positions PRIMARY KEY (id),
     CONSTRAINT uc_job_positions_name UNIQUE (name)
 );
