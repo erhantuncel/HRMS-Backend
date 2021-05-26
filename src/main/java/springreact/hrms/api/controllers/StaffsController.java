@@ -6,25 +6,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import springreact.hrms.business.abstracts.CandidateService;
+import springreact.hrms.business.abstracts.StaffService;
 import springreact.hrms.core.utilities.results.Result;
-import springreact.hrms.entities.concretes.Candidate;
+import springreact.hrms.entities.concretes.Staff;
 
 @RestController
-@RequestMapping(path = "/api/candidates")
-public class CandidatesController {
+@RequestMapping(path = "/api/staffs")
+public class StaffsController {
 
-	private CandidateService candidateService;
+	private StaffService staffService;
 
 	@Autowired
-	public CandidatesController(CandidateService candidateService) {
+	public StaffsController(StaffService staffService) {
 		super();
-		this.candidateService = candidateService;
+		this.staffService = staffService;
 	}
-	
+
 	@PostMapping(path = "/add")
-	public Result addCandidate(@RequestBody Candidate candidate) {
-		return this.candidateService.save(candidate);
+	public Result add(@RequestBody Staff staff) {
+		return this.staffService.save(staff);
 	}
-	
+
 }

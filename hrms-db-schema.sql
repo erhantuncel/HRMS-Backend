@@ -14,34 +14,34 @@ CREATE TABLE public.users
 
 CREATE TABLE public.candidates
 (
-    id integer NOT NULL,
+    candidate_id integer NOT NULL,
     identity_number character(11) NOT NULL,
     first_name character varying(25) NOT NULL,
     last_name character varying(25) NOT NULL,
     year_of_birth character(4) NOT NULL,
-    CONSTRAINT pk_candidates PRIMARY KEY (id),
-    CONSTRAINT fk_candidates_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE,
+    CONSTRAINT pk_candidates PRIMARY KEY (candidate_id),
+    CONSTRAINT fk_candidates_users FOREIGN KEY (candidate_id) REFERENCES public.users (id) ON DELETE CASCADE,
     CONSTRAINT uc_candidates_identity_number UNIQUE (identity_number)
 );
 
 CREATE TABLE public.employers
 (
-    id integer NOT NULL,
+    employer_id integer NOT NULL,
     company_name character varying(255) NOT NULL,
     web_page character varying(50) NOT NULL,
     phone character varying(12) NOT NULL,
-    CONSTRAINT pk_employers PRIMARY KEY (id),
-    CONSTRAINT fk_employers_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE,
+    CONSTRAINT pk_employers PRIMARY KEY (employer_id),
+    CONSTRAINT fk_employers_users FOREIGN KEY (employer_id) REFERENCES public.users (id) ON DELETE CASCADE,
     CONSTRAINT uc_employers_phone UNIQUE (phone)
 );
 
 CREATE TABLE public.staffs
 (
-    id integer NOT NULL,
+    staff_id integer NOT NULL,
     first_name character varying(25) NOT NULL,
     last_name character varying(25) NOT NULL,
-    CONSTRAINT pk_staffs PRIMARY KEY (id),
-    CONSTRAINT fk_staffs_users FOREIGN KEY (id) REFERENCES public.users (id) ON DELETE CASCADE
+    CONSTRAINT pk_staffs PRIMARY KEY (staff_id),
+    CONSTRAINT fk_staffs_users FOREIGN KEY (staff_id) REFERENCES public.users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.verification_codes
@@ -65,16 +65,16 @@ CREATE TABLE public.staff_confirmations
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_staff_confirmations PRIMARY KEY (id),
-    CONSTRAINT fk_staff_confirmations_staffs FOREIGN KEY (staff_id) REFERENCES public.staffs (id) ON DELETE CASCADE
+    CONSTRAINT fk_staff_confirmations_staffs FOREIGN KEY (staff_id) REFERENCES public.staffs (staff_id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.staff_confirmations_employer
 (
-    id integer NOT NULL,
+    employer_confirmation_id integer NOT NULL,
     employer_id int NOT NULL,
-    CONSTRAINT pk_staff_confirmations_employer PRIMARY KEY (id),
-    CONSTRAINT fk_staff_confirmations_employer_staff_confirmations FOREIGN KEY (id) REFERENCES public.staff_confirmations (id) ON DELETE CASCADE,
-    CONSTRAINT fk_staff_confirmations_employer_employers FOREIGN KEY (employer_id) REFERENCES public.employers (id) ON DELETE CASCADE
+    CONSTRAINT pk_staff_confirmations_employer PRIMARY KEY (employer_confirmation_id),
+    CONSTRAINT fk_staff_confirmations_employer_staff_confirmations FOREIGN KEY (employer_confirmation_id) REFERENCES public.staff_confirmations (id) ON DELETE CASCADE,
+    CONSTRAINT fk_staff_confirmations_employer_employers FOREIGN KEY (employer_id) REFERENCES public.employers (employer_id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.job_positions

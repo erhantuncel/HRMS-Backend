@@ -22,7 +22,7 @@ public class CandidateManager implements CandidateService {
 	}
 
 	@Override
-	public DataResult<Candidate> add(Candidate candidate) {
+	public DataResult<Candidate> save(Candidate candidate) {
 		Candidate savedCandidate = this.candidateDao.save(candidate);
 		return new SuccessDataResult<Candidate>(savedCandidate, "Candidate is saved.");
 	}
@@ -30,6 +30,11 @@ public class CandidateManager implements CandidateService {
 	@Override
 	public Result existsByIdentityNumber(String identityNumber) {
 		return new Result(this.candidateDao.existsByIdentityNumber(identityNumber));
+	}
+
+	@Override
+	public Candidate findById(int userId) {
+		return this.candidateDao.findById(userId).orElse(null);
 	}
 
 	

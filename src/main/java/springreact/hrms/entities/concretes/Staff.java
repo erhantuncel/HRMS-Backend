@@ -17,28 +17,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "candidates")
-@PrimaryKeyJoinColumn(name = "candidate_id")
-public class Candidate extends User {
+@Table(name = "staffs")
+@PrimaryKeyJoinColumn(name = "staff_id")
+public class Staff extends User {
 
-	@Column(name = "identity_number")
-	private String identityNumber;
-	
 	@Column(name = "first_name")
 	private String firstName;
 	
-	@Column(name = "last_name")
+	@Column(name =  "last_name")
 	private String lastName;
 	
-	@Column(name = "year_of_birth")
-	private String yearOfBirth;
-	
-	public Candidate(int id, String identityNumber, String firstName, 
-			String lastName, String email, String yearOfBirth, String password) {
-		super(id, email, password, false, new Date());
-		this.identityNumber = identityNumber;
+	public Staff(int id, String email, String password,
+				String firstName, String lastName) {
+		super(0, email, password, true, new Date());
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.yearOfBirth = yearOfBirth;
 	}
 }

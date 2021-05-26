@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springreact.hrms.business.abstracts.AuthService;
 import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.entities.dtos.CandidateForRegisterationDto;
+import springreact.hrms.entities.dtos.EmployerForRegistrationDto;
 
 @RestController
 @RequestMapping(path = "/api/auth")
@@ -29,10 +30,21 @@ public class AuthController {
 		return this.authService.registerCandidate(candidateDto);
 	}
 	
-	@GetMapping("/verifyemail/{userId}/{code}")
+	@PostMapping(path = "/registeremployer")
+	public Result registerEmployer(@RequestBody EmployerForRegistrationDto employerDto) {
+		return this.authService.registerEmployer(employerDto);
+	}
+	
+	@GetMapping(path = "/verifyemail/{userId}/{code}")
 	public Result verifyEmail(@RequestParam("userId") Integer userId, 
 								@RequestParam("code") String code) {
 		return this.authService.verifyEmail(userId, code);
+	}
+	
+	@PostMapping(path = "/confirmstaff/{employerId}/{staffId}")
+	public Result confirmStaff(@RequestParam("employerId") Integer employerId,
+								@RequestParam("staffId") Integer staffId) {
+		return authService.confirmEmployer(employerId, staffId);
 	}
 	
 }

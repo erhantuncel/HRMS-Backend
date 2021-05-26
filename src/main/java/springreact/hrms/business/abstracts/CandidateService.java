@@ -6,6 +6,7 @@ import springreact.hrms.entities.concretes.Candidate;
 
 public interface CandidateService {
 
-	DataResult<Candidate> add(Candidate candidate);
+	DataResult<Candidate> save(Candidate candidate);
 	Result existsByIdentityNumber(String identityNumber);
+	Candidate findById(int userId);
 }
