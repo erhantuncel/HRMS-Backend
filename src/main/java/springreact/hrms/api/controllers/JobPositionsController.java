@@ -1,7 +1,5 @@
 package springreact.hrms.api.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +23,13 @@ public class JobPositionsController {
 		this.jobPositionService = jobPositionService;
 	}
 
-	@GetMapping("/getall")
-	public List<JobPosition> getAll() {
-		return this.jobPositionService.getAll();
-	}
-	
 	@PostMapping(path = "/add")
 	public Result add(@RequestBody JobPosition jobPosition) {
 		return this.jobPositionService.save(jobPosition);
+	}
+	
+	@GetMapping("/getall")
+	public Result getAll() {
+		return this.jobPositionService.getAll();
 	}
 }
