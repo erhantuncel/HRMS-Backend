@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springreact.hrms.business.abstracts.JobPositionService;
+import springreact.hrms.core.utilities.results.DataResult;
+import springreact.hrms.core.utilities.results.ErrorDataResult;
+import springreact.hrms.core.utilities.results.ErrorResult;
+import springreact.hrms.core.utilities.results.SuccessDataResult;
 import springreact.hrms.dataAccess.abstracts.JobPositionDao;
 import springreact.hrms.entities.concretes.JobPosition;
 
@@ -23,6 +27,15 @@ public class JobPositionManager implements JobPositionService {
 	@Override
 	public List<JobPosition> getAll() {
 		return jobPositionDao.findAll();
+	}
+
+	@Override
+	public DataResult<JobPosition> save(JobPosition jobPosition) {
+		if(this.jobPositionDao.existsByName(jobPosition.getName())) {
+			return new ErrorDataResult<>("Job position is already exists.");
+		}
+		JobPosition savedJobPosition = this.jobPositionDao.save(jobPosition);
+		return new SuccessDataResult<JobPosition>(savedJobPosition, "Job Position is saved to db.");
 	}
 
 }
