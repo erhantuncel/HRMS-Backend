@@ -1,5 +1,7 @@
 package springreact.hrms.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,12 @@ public class EmployerManager implements EmployerService {
 	@Override
 	public Employer findById(Integer id) {
 		return this.employerDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public DataResult<List<Employer>> getAll() {
+		List<Employer> employers = this.employerDao.findAll();
+		return new SuccessDataResult<List<Employer>>(employers, "Employers listed successfully");
 	}
 	
 }
