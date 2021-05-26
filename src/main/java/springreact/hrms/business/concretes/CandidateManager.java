@@ -1,5 +1,7 @@
 package springreact.hrms.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,12 @@ public class CandidateManager implements CandidateService {
 	@Override
 	public Candidate findById(int userId) {
 		return this.candidateDao.findById(userId).orElse(null);
+	}
+
+	@Override
+	public DataResult<List<Candidate>> getAll() {
+		List<Candidate> candidates = this.candidateDao.findAll();
+		return new SuccessDataResult<List<Candidate>>(candidates, "Candidates are listed successfully.");
 	}
 
 	

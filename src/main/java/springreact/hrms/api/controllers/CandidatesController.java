@@ -1,6 +1,7 @@
 package springreact.hrms.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,11 @@ public class CandidatesController {
 	@PostMapping(path = "/add")
 	public Result addCandidate(@RequestBody Candidate candidate) {
 		return this.candidateService.save(candidate);
+	}
+	
+	@GetMapping(path = "/getall")
+	public Result getAll() {
+		return this.candidateService.getAll();
 	}
 	
 }
