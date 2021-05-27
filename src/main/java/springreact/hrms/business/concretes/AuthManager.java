@@ -88,14 +88,6 @@ public class AuthManager implements AuthService {
 	
 	@Override
 	public Result registerEmployer(EmployerForRegistrationDto employerDto) {
-		/*
-		 * +1-Tüm alanlar zorunlu
-		 * +2-Aynı domain
-		 * +3-Şifre kontrolü
-		 * +4-E-mail kayıtlı mı
-		 * +5-E-mail doğrulaması
-		 * 6-Personel doğrulaması
-		 */
 		Result businessResult = BusinessRules.run(checkIfAllFieldsNotBlank(employerDto),
 									checkIfEmailSameDomainWithWebPage(employerDto.getEmail(), employerDto.getWebPage()),
 									confirmPassword(employerDto.getPassword(), employerDto.getPasswordForCheck()),
