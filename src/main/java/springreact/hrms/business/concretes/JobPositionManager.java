@@ -38,4 +38,9 @@ public class JobPositionManager implements JobPositionService {
 		return new SuccessDataResult<List<JobPosition>>(jobPositions, "Job positions are listed successfully.");
 	}
 
+	@Override
+	public JobPosition findById(Integer id) {
+		return this.jobPositionDao.findById(id).orElse(null);
+	}
+
 }

@@ -8,4 +8,5 @@ import springreact.hrms.entities.concretes.JobPosition;
 public interface JobPositionService {
 	DataResult<JobPosition> save(JobPosition jobPosition);
 	DataResult<List<JobPosition>> getAll();
+	JobPosition findById(Integer id);
 }

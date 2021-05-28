@@ -1,11 +1,15 @@
 package springreact.hrms.entities.concretes;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "employers")
 @PrimaryKeyJoinColumn(name = "employer_id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobAdverts"})
 public class Employer extends User {
 
 	@Column(name = "company_name")
@@ -30,6 +35,9 @@ public class Employer extends User {
 	@Column(name = "phone")
 	private String phone;
 	
+	@OneToMany(mappedBy = "employer")
+	private List<JobAdvert> jobAdverts;
+	
 	public Employer(int id, String email, String password, 
 			String companyName, String webPage, String phone) {
 		super(id, email, password, false, new Date());
@@ -37,6 +45,4 @@ public class Employer extends User {
 		this.webPage = webPage;
 		this.phone = phone;
 	}
-	
-	
 }
