@@ -26,4 +26,9 @@ public class JobAdvertsController {
 	public Result add(@RequestBody JobAdvert jobAdvert) {
 		return this.jobAdvertService.save(jobAdvert);
 	}
+	
+	@PostMapping(path = "/getallactive")
+	public Result getAll() {
+		return this.jobAdvertService.findByIsActive(true);
+	}
 }

@@ -1,10 +1,13 @@
 package springreact.hrms.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springreact.hrms.business.abstracts.JobAdvertService;
 import springreact.hrms.core.utilities.business.BusinessRules;
+import springreact.hrms.core.utilities.results.DataResult;
 import springreact.hrms.core.utilities.results.ErrorResult;
 import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.core.utilities.results.SuccessDataResult;
@@ -33,6 +36,12 @@ public class JobAdvertManager implements JobAdvertService {
 		return new SuccessDataResult<JobAdvert>(savedJobAdvert, "Job Advert is saved.");
 	}
 	
+	@Override
+	public DataResult<List<JobAdvert>> findByIsActive(Boolean isActive) {
+		List<JobAdvert> jobAdverts = this.jobAdvertDao.findByIsActive(isActive);
+		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, "Job Adverts are listed.");
+	}
+	
 	private Result checkIfAllFieldsNotBlank(JobAdvert jobAdvert) {
 		if((jobAdvert.getCity() == null 
 				|| jobAdvert.getEmployer() == null
@@ -45,4 +54,5 @@ public class JobAdvertManager implements JobAdvertService {
 		return new SuccessResult();
 	}
 
+	
 }
