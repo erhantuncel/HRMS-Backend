@@ -89,11 +89,12 @@ CREATE TABLE public.job_positions
 
 CREATE TABLE public.cities
 (
-    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    id int NOT NULL,
     name character varying(20) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
-    CONSTRAINT pk_cities PRIMARY KEY (id)
+    CONSTRAINT pk_cities PRIMARY KEY (id),
+    CONSTRAINT uc_cities_name UNIQUE (name)
 );
 
 CREATE TABLE public.job_adverts
@@ -102,9 +103,9 @@ CREATE TABLE public.job_adverts
     employer_id int NOT NULL,
 	job_position_id int NOT NULL,
 	city_id int NOT NULL,
-	job_definition character varying(500) NOT NULL,
-	min_salary int,
-	max_salary int,
+	job_definition text NOT NULL,
+	min_salary numeric,
+	max_salary numeric,
 	open_position_count int NOT NULL,
     deadline date NOT NULL,
     is_active boolean NOT NULL,
@@ -117,84 +118,84 @@ CREATE TABLE public.job_adverts
 
 SET TIMEZONE='TURKEY';
 
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ADANA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ADIYAMAN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('AFYON', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('AĞRI', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('AMASYA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ANKARA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ANTALYA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ARTVİN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('AYDIN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BALIKESİR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BİLECİK', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BİNGÖL', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BİTLİS', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BOLU', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BURDUR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BURSA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ÇANAKKALE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ÇANKIRI', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ÇORUM', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('DENİZLİ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('DİYARBAKIR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('EDİRNE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ELAZIĞ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ERZİNCAN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ERZURUM', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ESKİŞEHİR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('GAZİANTEP', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('GİRESUN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('GÜMÜŞHANE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('HAKKARİ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('HATAY', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ISPARTA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('MERSİN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('İSTANBUL', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('İZMİR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KARS', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KASTAMONU', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KAYSERİ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KIRKLARELİ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KIRŞEHİR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KOCAELİ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KONYA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KÜTAHYA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('MALATYA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('MANİSA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KAHRAMANMARAŞ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('MARDİN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('MUĞLA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('MUŞ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('NEVŞEHİR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('NİĞDE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ORDU', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('RİZE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('SAKARYA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('SAMSUN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('SİİRT', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('SİNOP', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('SİVAS', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('TEKİRDAĞ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('TOKAT', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('TRABZON', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('TUNCELİ', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ŞANLIURFA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('UŞAK', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('VAN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('YOZGAT', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ZONGULDAK', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('AKSARAY', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BAYBURT', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KARAMAN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KIRIKKALE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BATMAN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ŞIRNAK', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('BARTIN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('ARDAHAN', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('IĞDIR', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('YALOVA', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KARABÜK', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('KİLİS', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('OSMANİYE', true, CURRENT_TIMESTAMP);
-INSERT INTO public.cities (name, is_active, created_date) VALUES ('DÜZCE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (1, 'ADANA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (2, 'ADIYAMAN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (3, 'AFYON', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (4, 'AĞRI', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (5, 'AMASYA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (6, 'ANKARA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (7, 'ANTALYA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (8, 'ARTVİN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (9, 'AYDIN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (10, 'BALIKESİR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (11, 'BİLECİK', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (12, 'BİNGÖL', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (13, 'BİTLİS', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (14, 'BOLU', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (15, 'BURDUR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (16, 'BURSA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (17, 'ÇANAKKALE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (18, 'ÇANKIRI', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (19, 'ÇORUM', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (20, 'DENİZLİ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (21, 'DİYARBAKIR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (22, 'EDİRNE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (23, 'ELAZIĞ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (24, 'ERZİNCAN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (25, 'ERZURUM', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (26, 'ESKİŞEHİR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (27, 'GAZİANTEP', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (28, 'GİRESUN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (29, 'GÜMÜŞHANE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (30, 'HAKKARİ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (31, 'HATAY', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (32, 'ISPARTA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (33, 'MERSİN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (34, 'İSTANBUL', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (35, 'İZMİR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (36, 'KARS', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (37, 'KASTAMONU', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (38, 'KAYSERİ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (39, 'KIRKLARELİ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (40, 'KIRŞEHİR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (41, 'KOCAELİ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (42, 'KONYA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (43, 'KÜTAHYA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (44, 'MALATYA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (45, 'MANİSA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (46, 'KAHRAMANMARAŞ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (47, 'MARDİN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (48, 'MUĞLA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (49, 'MUŞ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (50, 'NEVŞEHİR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (51, 'NİĞDE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (52, 'ORDU', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (53, 'RİZE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (54, 'SAKARYA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (55, 'SAMSUN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (56, 'SİİRT', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (57, 'SİNOP', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (58, 'SİVAS', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (59, 'TEKİRDAĞ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (60, 'TOKAT', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (61, 'TRABZON', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (62, 'TUNCELİ', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (63, 'ŞANLIURFA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (64, 'UŞAK', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (65, 'VAN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (66, 'YOZGAT', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (67, 'ZONGULDAK', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (68, 'AKSARAY', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (69, 'BAYBURT', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (70, 'KARAMAN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (71, 'KIRIKKALE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (72, 'BATMAN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (73, 'ŞIRNAK', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (74, 'BARTIN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (75, 'ARDAHAN', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (76, 'IĞDIR', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (77, 'YALOVA', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (78, 'KARABÜK', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (79, 'KİLİS', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (80, 'OSMANİYE', true, CURRENT_TIMESTAMP);
+INSERT INTO public.cities (id, name, is_active, created_date) VALUES (81, 'DÜZCE', true, CURRENT_TIMESTAMP);
