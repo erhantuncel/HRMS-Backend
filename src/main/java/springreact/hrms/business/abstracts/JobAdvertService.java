@@ -10,4 +10,6 @@ public interface JobAdvertService {
 
 	Result save(JobAdvert jobAdvert);
 	DataResult<List<JobAdvert>> findByIsActive(Boolean isActive);
+	DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateAsc(Boolean isActive);
+	DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateDesc(Boolean isActive);
 }

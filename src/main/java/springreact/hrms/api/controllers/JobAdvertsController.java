@@ -1,6 +1,7 @@
 package springreact.hrms.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +28,18 @@ public class JobAdvertsController {
 		return this.jobAdvertService.save(jobAdvert);
 	}
 	
-	@PostMapping(path = "/getallactive")
-	public Result getAll() {
+	@GetMapping(path = "/getallactive")
+	public Result getAllActive() {
 		return this.jobAdvertService.findByIsActive(true);
+	}
+	
+	@GetMapping(path = "/getall-active-order-by-createddate-asc")
+	public Result getAllActiveOrderByCreatedDateAsc() {
+		return this.jobAdvertService.findByIsActiveOrderByCreatedDateAsc(true);
+	}
+	
+	@GetMapping(path = "/getall-active-order-by-createddate-desc")
+	public Result getAllActiveOrderByCreatedDateDesc() {
+		return this.jobAdvertService.findByIsActiveOrderByCreatedDateDesc(true);
 	}
 }

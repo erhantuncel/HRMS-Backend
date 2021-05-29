@@ -42,6 +42,20 @@ public class JobAdvertManager implements JobAdvertService {
 		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, "Job Adverts are listed.");
 	}
 	
+	@Override
+	public DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateAsc(Boolean isActive) {
+		List<JobAdvert> jobAdverts = this.jobAdvertDao.findByIsActiveOrderByCreatedDateAsc(isActive);
+		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, 
+				"Job Adverts are listed sorted by created date in ascending order.");
+	}
+	
+	@Override
+	public DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateDesc(Boolean isActive) {
+		List<JobAdvert> jobAdverts = this.jobAdvertDao.findByIsActiveOrderByCreatedDateDesc(isActive);
+		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, 
+				"Job Adverts are listed sorted by created date in descendin order.");
+	}
+	
 	private Result checkIfAllFieldsNotBlank(JobAdvert jobAdvert) {
 		if((jobAdvert.getCity() == null 
 				|| jobAdvert.getEmployer() == null
@@ -53,6 +67,4 @@ public class JobAdvertManager implements JobAdvertService {
 		}
 		return new SuccessResult();
 	}
-
-	
 }
