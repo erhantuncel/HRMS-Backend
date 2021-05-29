@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.JobAdvertService;
 import springreact.hrms.core.utilities.results.Result;
-import springreact.hrms.entities.dtos.JobAdvertForSaveDto;
+import springreact.hrms.entities.concretes.JobAdvert;
 
 @RestController
 @RequestMapping(path = "/api/jobadverts")
@@ -23,8 +23,7 @@ public class JobAdvertsController {
 	}
 
 	@PostMapping(path = "/add")
-	public Result add(@RequestBody JobAdvertForSaveDto jobAdvertDto) {
-		return this.jobAdvertService.save(jobAdvertDto);
+	public Result add(@RequestBody JobAdvert jobAdvert) {
+		return this.jobAdvertService.save(jobAdvert);
 	}
-
 }
