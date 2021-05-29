@@ -56,6 +56,12 @@ public class JobAdvertManager implements JobAdvertService {
 				"Job Adverts are listed sorted by created date in descendin order.");
 	}
 	
+	@Override
+	public DataResult<List<JobAdvert>> findByIsActiveAndEmployerId(Boolean isActive, Integer employerId) {
+		List<JobAdvert> jobAdverts = this.jobAdvertDao.findByIsActiveAndEmployerId(isActive, employerId);
+		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, "Job Adverts are listed by Employer.");
+	}
+	
 	private Result checkIfAllFieldsNotBlank(JobAdvert jobAdvert) {
 		if((jobAdvert.getCity() == null 
 				|| jobAdvert.getEmployer() == null

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.JobAdvertService;
@@ -41,5 +42,10 @@ public class JobAdvertsController {
 	@GetMapping(path = "/getall-active-order-by-createddate-desc")
 	public Result getAllActiveOrderByCreatedDateDesc() {
 		return this.jobAdvertService.findByIsActiveOrderByCreatedDateDesc(true);
+	}
+	
+	@GetMapping(path = "getall-active-by-employer-id/{employerId}")
+	public Result getAllActiveByEmployer(@RequestParam("employerId") Integer employerId) {
+		return this.jobAdvertService.findByIsActiveAndEmployerId(true, employerId);
 	}
 }

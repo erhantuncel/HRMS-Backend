@@ -12,4 +12,5 @@ public interface JobAdvertService {
 	DataResult<List<JobAdvert>> findByIsActive(Boolean isActive);
 	DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateAsc(Boolean isActive);
 	DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateDesc(Boolean isActive);
+	DataResult<List<JobAdvert>> findByIsActiveAndEmployerId(Boolean isActive, Integer employerId);
 }
