@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import springreact.hrms.business.abstracts.JobAdvertService;
 import springreact.hrms.core.utilities.business.BusinessRules;
 import springreact.hrms.core.utilities.results.DataResult;
+import springreact.hrms.core.utilities.results.ErrorDataResult;
 import springreact.hrms.core.utilities.results.ErrorResult;
 import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.core.utilities.results.SuccessDataResult;
@@ -62,6 +63,17 @@ public class JobAdvertManager implements JobAdvertService {
 		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, "Job Adverts are listed by Employer.");
 	}
 	
+	@Override
+	public DataResult<JobAdvert> changeIsActiveStatus(Integer jobAdvertId, Integer employerId) {
+		JobAdvert jobAdvert = this.jobAdvertDao.findByIdAndEmployerId(jobAdvertId, employerId);
+		if(jobAdvert == null) {
+			return new ErrorDataResult<JobAdvert>("There is no job advert that matches this id and employer.");
+		}
+		jobAdvert.setActive(!jobAdvert.isActive());
+		JobAdvert savedJobAdvert = this.jobAdvertDao.save(jobAdvert);
+		return new SuccessDataResult<JobAdvert>(savedJobAdvert, "Job advert active status is changed.");
+	}
+	
 	private Result checkIfAllFieldsNotBlank(JobAdvert jobAdvert) {
 		if((jobAdvert.getCity() == null 
 				|| jobAdvert.getEmployer() == null
@@ -73,4 +85,6 @@ public class JobAdvertManager implements JobAdvertService {
 		}
 		return new SuccessResult();
 	}
+
+	
 }

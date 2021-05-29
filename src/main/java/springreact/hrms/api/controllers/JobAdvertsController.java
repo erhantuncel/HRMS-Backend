@@ -48,4 +48,10 @@ public class JobAdvertsController {
 	public Result getAllActiveByEmployer(@RequestParam("employerId") Integer employerId) {
 		return this.jobAdvertService.findByIsActiveAndEmployerId(true, employerId);
 	}
+	
+	@PostMapping(path = "change-active-status")
+	public Result changeActiveStatusOfJobAdvert(@RequestParam("jobAdvertId") Integer jobAdvertid,
+												@RequestParam("employerId") Integer employerId) {
+		return this.jobAdvertService.changeIsActiveStatus(jobAdvertid, employerId);
+	}
 }
