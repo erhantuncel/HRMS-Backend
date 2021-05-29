@@ -29,7 +29,7 @@ public class JobAdvertsController {
 		return this.jobAdvertService.save(jobAdvert);
 	}
 	
-	@GetMapping(path = "/getallactive")
+	@GetMapping(path = "/getall-active")
 	public Result getAllActive() {
 		return this.jobAdvertService.findByIsActive(true);
 	}
