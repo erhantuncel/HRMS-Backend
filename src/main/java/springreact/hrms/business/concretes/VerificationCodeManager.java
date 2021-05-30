@@ -6,20 +6,24 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import springreact.hrms.business.abstracts.UserService;
 import springreact.hrms.business.abstracts.VerificationCodeService;
 import springreact.hrms.core.utilities.results.DataResult;
 import springreact.hrms.core.utilities.results.SuccessDataResult;
 import springreact.hrms.dataAccess.abstracts.VerificationCodeDao;
+import springreact.hrms.entities.concretes.User;
 import springreact.hrms.entities.concretes.VerificationCode;
 
 @Service
 public class VerificationCodeManager implements VerificationCodeService {
 
+	UserService userService;
 	VerificationCodeDao verificationCodeDao;
 
 	@Autowired
-	public VerificationCodeManager(VerificationCodeDao verificationCodeDao) {
+	public VerificationCodeManager(UserService userService, VerificationCodeDao verificationCodeDao) {
 		super();
+		this.userService = userService;
 		this.verificationCodeDao = verificationCodeDao;
 	}
 
@@ -32,7 +36,8 @@ public class VerificationCodeManager implements VerificationCodeService {
 	@Override
 	public DataResult<VerificationCode> generateCode(int userId) {
 		UUID uuid = UUID.randomUUID();
-		VerificationCode verificationCodeToSave = new VerificationCode(0, userId, uuid.toString(), false, true, new Date());
+		User user = this.userService.findById(userId);
+		VerificationCode verificationCodeToSave = new VerificationCode(0, user, uuid.toString(), false, true, new Date());
 		return save(verificationCodeToSave);
 	}
 

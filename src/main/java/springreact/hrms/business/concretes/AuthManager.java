@@ -20,6 +20,7 @@ import springreact.hrms.core.utilities.results.SuccessResult;
 import springreact.hrms.core.utilities.verifications.VerificationService;
 import springreact.hrms.entities.concretes.Candidate;
 import springreact.hrms.entities.concretes.Employer;
+import springreact.hrms.entities.concretes.Staff;
 import springreact.hrms.entities.concretes.StaffConfirmationEmployer;
 import springreact.hrms.entities.concretes.VerificationCode;
 import springreact.hrms.entities.dtos.CandidateForRegisterationDto;
@@ -132,9 +133,10 @@ public class AuthManager implements AuthService {
 	
 	@Override
 	public Result confirmEmployer(Integer employerId, Integer staffId) {
-		StaffConfirmationEmployer staffConfirmationEmployer = new StaffConfirmationEmployer(0, staffId, employerId);
-		DataResult<StaffConfirmationEmployer> savedConfirmation = this.staffConfirmationEmployerService.save(staffConfirmationEmployer);
 		Employer employer = this.employerService.findById(employerId);
+		Staff staff = this.staffService.findById(staffId);
+		StaffConfirmationEmployer staffConfirmationEmployer = new StaffConfirmationEmployer(0, staff, employer);
+		DataResult<StaffConfirmationEmployer> savedConfirmation = this.staffConfirmationEmployerService.save(staffConfirmationEmployer);
 		employer.setActive(true);
 		this.employerService.save(employer);
 		return new SuccessDataResult<StaffConfirmationEmployer>(savedConfirmation.getData(), "Employer is confirmed by staff");
