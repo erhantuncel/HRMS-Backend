@@ -1,9 +1,11 @@
 package springreact.hrms.entities.concretes;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -32,6 +34,9 @@ public class Candidate extends User {
 	
 	@Column(name = "year_of_birth")
 	private String yearOfBirth;
+	
+	@OneToMany(mappedBy = "candidate")
+	private List<Resume> resumes;
 	
 	public Candidate(int id, String identityNumber, String firstName, 
 			String lastName, String email, String yearOfBirth, String password) {

@@ -8,13 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import lombok.AllArgsConstructor;
@@ -22,20 +23,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "job_positions")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobAdverts"})
-public class JobPosition {
+@Table(name = "resumes")
+public class Resume {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-
+	
 	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "image_url")
+	private String imageUrl;
+	
+	@Column(name = "preface")
+	private String preface;
+	
+	@Column(name = "skills")
+	private String skills;
+	
+	@Column(name = "github_url")
+	private String githubUrl;
+	
+	@Column(name = "linkedin_url")
+	private String linkedinUrl;
 	
 	@Column(name = "is_active")
 	private boolean isActive;
@@ -45,9 +60,16 @@ public class JobPosition {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
-	@OneToMany(mappedBy = "jobPosition")
-	private List<JobAdvert> jobAdverts;
+	@ManyToOne
+	@JoinColumn(name = "candidate_id")
+	private Candidate candidate;
 	
-	@OneToMany(mappedBy = "jobPosition")
+	@OneToMany(mappedBy = "resume")
+	private List<Education> educations;
+	
+	@OneToMany(mappedBy = "resume")
 	private List<JobExperience> jobExperiences;
+	
+	@OneToMany(mappedBy = "resume")
+	private List<Language> languages;
 }

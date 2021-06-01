@@ -15,10 +15,10 @@ CREATE TABLE public.users
 CREATE TABLE public.candidates
 (
     candidate_id integer NOT NULL,
-    identity_number character(11) NOT NULL,
+    identity_number character varying(11) NOT NULL,
     first_name character varying(25) NOT NULL,
     last_name character varying(25) NOT NULL,
-    year_of_birth character(4) NOT NULL,
+    year_of_birth character varying(4) NOT NULL,
     CONSTRAINT pk_candidates PRIMARY KEY (candidate_id),
     CONSTRAINT fk_candidates_users FOREIGN KEY (candidate_id) REFERENCES public.users (id) ON DELETE CASCADE,
     CONSTRAINT uc_candidates_identity_number UNIQUE (identity_number)
@@ -99,14 +99,14 @@ CREATE TABLE public.cities
 
 CREATE TABLE public.job_adverts
 (
-	id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     employer_id int NOT NULL,
-	job_position_id int NOT NULL,
-	city_id int NOT NULL,
-	job_definition text NOT NULL,
-	min_salary numeric,
-	max_salary numeric,
-	open_position_count int NOT NULL,
+    job_position_id int NOT NULL,
+    city_id int NOT NULL,
+    job_definition text NOT NULL,
+    min_salary double precision,
+    max_salary double precision,
+    open_position_count int NOT NULL,
     deadline date NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
@@ -115,6 +115,68 @@ CREATE TABLE public.job_adverts
     CONSTRAINT fk_job_adverts_job_positions FOREIGN KEY (job_position_id) REFERENCES public.job_positions (id) ON DELETE CASCADE,
     CONSTRAINT fk_job_adverts_cities FOREIGN KEY (city_id) REFERENCES public.cities (id) ON DELETE CASCADE 
 );
+
+CREATE TABLE public.resumes
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    candidate_id int NOT NULL,
+    name character varying(30) NOT NULL,
+    image_url character varying(250) NOT NULL,
+    preface text NOT NULL,
+    skills text NOT NULL,
+    github_url character varying(250) NOT NULL,
+    linkedin_url character varying(250) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_resumes PRIMARY KEY (id),
+    CONSTRAINT fk_resumes_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE,
+    CONSTRAINT uc_resumes_image_url UNIQUE (image_url),
+    CONSTRAINT uc_resumes_github_url UNIQUE (github_url),
+    CONSTRAINT uc_resumes_linkedin_url UNIQUE (linkedin_url)
+);
+
+CREATE TABLE public.educations
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    resume_id int NOT NULL,
+    school_name character varying(200) NOT NULL,
+    department character varying(200) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_educations PRIMARY KEY (id),
+    CONSTRAINT fk_educations_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
+);
+
+CREATE TABLE public.job_experiences
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    job_position_id int NOT NULL,
+    resume_id int NOT NULL,
+    workplace_name character varying(200) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_job_experiences PRIMARY KEY (id),
+    CONSTRAINT fk_job_experiences_job_positions FOREIGN KEY (job_position_id) REFERENCES public.job_positions (id) ON DELETE CASCADE,
+    CONSTRAINT fk_job_experiences_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
+);
+
+CREATE TABLE public.languages
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    resume_id int NOT NULL,
+    name character varying(50) NOT NULL,
+    level char(1) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_languages PRIMARY KEY (id),
+    CONSTRAINT fk_languages_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
+);
+
+
 
 SET TIMEZONE='TURKEY';
 
