@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -26,7 +25,7 @@ import lombok.NoArgsConstructor;
 @PrimaryKeyJoinColumn(name = "candidate_id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", 
 	"educations", "jobExperiences", "languages", "resumes", 
-	"verificationCodes", "photo"})
+	"verificationCodes", "photos"})
 public class Candidate extends User {
 
 	@Column(name = "identity_number")
@@ -41,8 +40,8 @@ public class Candidate extends User {
 	@Column(name = "year_of_birth")
 	private String yearOfBirth;
 	
-	@OneToOne(mappedBy = "candidate")
-	private Photo photo;
+	@OneToMany(mappedBy = "candidate")
+	private List<Photo> photos;
 	
 	@OneToMany(mappedBy = "candidate")
 	private List<Education> educations;

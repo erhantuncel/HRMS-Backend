@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,7 +46,7 @@ public class Photo {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
-	@OneToOne
-	@JoinColumn(name = "candidate_id", referencedColumnName = "candidate_id")
+	@ManyToOne
+	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 }
