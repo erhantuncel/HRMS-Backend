@@ -41,4 +41,20 @@ public class CloudinaryServiceAdapter implements ImageService {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public DataResult<Map> delete(String publicId) {
+		if (this.cloudinary.config.cloudName.isBlank() 
+				|| this.cloudinary.config.apiKey.isBlank() 
+				|| this.cloudinary.config.apiSecret.isBlank()) {
+			return new ErrorDataResult<Map>("Check Cloudinary api configuration parameters in application.properties file.");
+		}
+		try {
+			Map result = this.cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+			return new SuccessDataResult<Map>(result);
+		} catch (IOException e) {
+			return new ErrorDataResult<Map>("Image is not removed.");
+		}
+	}
+
 }
