@@ -39,11 +39,13 @@ public class Education {
 	private String department;
 	
 	@Column(name = "start_date")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
 	private Date startDate;
 	
 	@Column(name = "end_date")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
 	private Date endDate;
 	
 	@Column(name = "is_active")
