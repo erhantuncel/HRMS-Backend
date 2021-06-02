@@ -1,7 +1,6 @@
 package springreact.hrms.entities.concretes;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,9 +35,6 @@ public class Resume {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "image_url")
-	private String imageUrl;
-	
 	@Column(name = "preface")
 	private String preface;
 	
@@ -63,13 +58,4 @@ public class Resume {
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
-	
-	@OneToMany(mappedBy = "resume")
-	private List<Education> educations;
-	
-	@OneToMany(mappedBy = "resume")
-	private List<JobExperience> jobExperiences;
-	
-	@OneToMany(mappedBy = "resume")
-	private List<Language> languages;
 }

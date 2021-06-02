@@ -47,6 +47,6 @@ public class Language {
 	private Date createdDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "resume_id")
-	private Resume resume;
+	@JoinColumn(name = "candidate_id")
+	private Candidate candidate;
 }

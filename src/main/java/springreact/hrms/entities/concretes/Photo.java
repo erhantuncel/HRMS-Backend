@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,24 +24,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "job_experiences")
-public class JobExperience {
+@Table(name = "photos")
+public class Photo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "workplace_name")
-	private String workplaceName;
+	@Column(name = "public_id")
+	private String publicId;
 	
-	@Column(name = "start_date")
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-	
-	@Column(name = "end_date")
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
+	@Column(name = "url")
+	private String url;
 	
 	@Column(name = "is_active")
 	private boolean isActive;
@@ -51,11 +46,7 @@ public class JobExperience {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
-	@ManyToOne
-	@JoinColumn(name = "job_position_id")
-	private JobPosition jobPosition;
-	
-	@ManyToOne
-	@JoinColumn(name = "candidate_id")
+	@OneToOne
+	@JoinColumn(name = "candidate_id", referencedColumnName = "candidate_id")
 	private Candidate candidate;
 }
