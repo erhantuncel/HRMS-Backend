@@ -130,23 +130,6 @@ CREATE TABLE public.photos
     CONSTRAINT uc_photos_url UNIQUE (url)
 );
 
-CREATE TABLE public.resumes
-(
-    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    candidate_id int NOT NULL,
-    name character varying(30) NOT NULL,
-    preface text NOT NULL,
-    skills text NOT NULL,
-    github_url character varying(250) NOT NULL,
-    linkedin_url character varying(250) NOT NULL,
-    is_active boolean NOT NULL,
-    created_date timestamp without time zone NOT NULL,
-    CONSTRAINT pk_resumes PRIMARY KEY (id),
-    CONSTRAINT fk_resumes_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE,
-    CONSTRAINT uc_resumes_github_url UNIQUE (github_url),
-    CONSTRAINT uc_resumes_linkedin_url UNIQUE (linkedin_url)
-);
-
 CREATE TABLE public.educations
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
@@ -188,6 +171,51 @@ CREATE TABLE public.languages
     CONSTRAINT fk_languages_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
 );
 
+CREATE TABLE public.social_medias
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    name character varying(50) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_social_medias PRIMARY KEY (id),
+    CONSTRAINT uc_social_medias_name UNIQUE (name)
+);
+
+CREATE TABLE public.social_media_links
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    social_media_id int NOT NULL,
+    candidate_id int NOT NULL,
+    url character varying(250) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_social_media_links PRIMARY KEY (id),
+    CONSTRAINT fk_social_media_links_social_medias FOREIGN KEY (social_media_id) REFERENCES public.social_medias (id) ON DELETE CASCADE,
+    CONSTRAINT fk_social_media_links_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE,
+    CONSTRAINT uc_social_media_links_url UNIQUE (url)
+);
+
+CREATE TABLE public.skills
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    candidate_id int NOT NULL,
+    name character varying(50) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_skills PRIMARY KEY (id),
+    CONSTRAINT fk_skills_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+);
+
+CREATE TABLE public.prefaces
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    candidate_id int NOT NULL,
+    content text NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_prefaces PRIMARY KEY (id),
+    CONSTRAINT fk_prefaces_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+);
 
 
 SET TIMEZONE='TURKEY';

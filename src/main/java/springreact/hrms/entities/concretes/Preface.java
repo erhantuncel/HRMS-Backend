@@ -24,28 +24,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "resumes")
-public class Resume {
+@Table(name = "prefaces")
+public class Preface {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "name")
-	private String name;
-	
-	@Column(name = "preface")
-	private String preface;
-	
-	@Column(name = "skills")
-	private String skills;
-	
-	@Column(name = "github_url")
-	private String githubUrl;
-	
-	@Column(name = "linkedin_url")
-	private String linkedinUrl;
+	@Column(name = "content", columnDefinition = "TEXT")
+	private String content;
 	
 	@Column(name = "is_active")
 	private boolean isActive;
