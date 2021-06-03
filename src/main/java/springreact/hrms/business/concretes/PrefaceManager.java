@@ -1,0 +1,40 @@
+package springreact.hrms.business.concretes;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import springreact.hrms.business.abstracts.PrefaceService;
+import springreact.hrms.core.utilities.results.DataResult;
+import springreact.hrms.core.utilities.results.SuccessDataResult;
+import springreact.hrms.dataAccess.abstracts.PrefaceDao;
+import springreact.hrms.entities.concretes.Preface;
+
+@Service
+public class PrefaceManager implements PrefaceService {
+
+	private PrefaceDao prefaceDao;
+	
+	@Autowired
+	public PrefaceManager(PrefaceDao prefaceDao) {
+		super();
+		this.prefaceDao = prefaceDao;
+	}
+
+	@Override
+	public DataResult<Preface> save(Preface preface) {
+		preface.setActive(true);
+		preface.setCreatedDate(new Date());
+		Preface savedPreface = this.prefaceDao.save(preface);
+		return new SuccessDataResult<Preface>(savedPreface, "Preface is saved to db.");
+	}
+
+	@Override
+	public DataResult<List<Preface>> findByCandidateId(int candidateId, boolean isActive) {
+		List<Preface> prefaces = this.prefaceDao.findByCandidateIdAndIsActive(candidateId, isActive);
+		return new SuccessDataResult<List<Preface>>(prefaces, "Prefaces are listed.");
+	}
+
+}
