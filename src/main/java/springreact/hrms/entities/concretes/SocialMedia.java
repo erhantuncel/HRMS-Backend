@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +44,7 @@ public class SocialMedia {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "socialMedia")
 	private List<SocialMediaLink> socialMediaLinks;
 }
