@@ -24,14 +24,14 @@ public class EducationsController {
 		this.educationService = educationService;
 	}
 	
-	@GetMapping(path = "/getall-by-candidate-id/{candidateId}")
-	public Result getAllActiveEducationsByCandidateId(@RequestParam("candidateId") int candidateId) {
-		return this.educationService.findByCandidateId(candidateId, true);
+	@GetMapping(path = "/getall-by-resume-id/{id}")
+	public Result getAllActiveEducationsByResumeId(@RequestParam("id") int resumeId) {
+		return this.educationService.findByResumeId(resumeId, true);
 	}
 	
-	@GetMapping(path = "/getall-by-candidate-id-order-by-end-date-desc/{candidateId}")
-	public Result getAllEducationsByCandidateIdOrderByEndDateDesc(@RequestParam("candidateId") int candidateId) {
-		return this.educationService.findByCandidateIdOrderByEndDateDesc(candidateId, true);
+	@GetMapping(path = "/getall-by-resume-id-order-by-end-date-desc/{id}")
+	public Result getAllEducationsByResumeIdOrderByEndDateDesc(@RequestParam("id") int resumeId) {
+		return this.educationService.findByResumeIdOrderByEndDateDesc(resumeId, true);
 	}
 	
 	@PostMapping(path = "/add")

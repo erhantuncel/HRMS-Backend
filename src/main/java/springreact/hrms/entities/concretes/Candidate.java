@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +23,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "candidates")
 @PrimaryKeyJoinColumn(name = "candidate_id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", 
-	"educations", "jobExperiences", "languages", 
-	"verificationCodes", "photos", "socialMediaLinks",
-	"prefaces", "skills"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", 
+//	"educations", "jobExperiences", "languages", 
+//	"verificationCodes", "photos", "socialMediaLinks",
+//	"prefaces"})
 public class Candidate extends User {
 
 	@Column(name = "identity_number")
@@ -41,26 +41,10 @@ public class Candidate extends User {
 	@Column(name = "year_of_birth")
 	private String yearOfBirth;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
-	private List<Photo> photos;
+	private List<Resume> resumes;
 	
-	@OneToMany(mappedBy = "candidate")
-	private List<Education> educations;
-	
-	@OneToMany(mappedBy = "candidate")
-	private List<JobExperience> jobExperiences;
-	
-	@OneToMany(mappedBy = "candidate")
-	private List<Language> languages;
-	
-	@OneToMany(mappedBy = "candidate")
-	private List<SocialMediaLink> socialMediaLinks;
-	
-	@OneToMany(mappedBy = "candidate")
-	private List<Preface> prefaces;
-	
-	@OneToMany(mappedBy = "candidate")
-	private List<Skill> skills;
 	
 	public Candidate(int id, String identityNumber, String firstName, 
 			String lastName, String email, String yearOfBirth, String password) {

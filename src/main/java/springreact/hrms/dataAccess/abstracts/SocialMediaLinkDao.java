@@ -8,5 +8,5 @@ import springreact.hrms.entities.concretes.SocialMediaLink;
 
 public interface SocialMediaLinkDao extends JpaRepository<SocialMediaLink, Integer>{
 
-	List<SocialMediaLink> findByCandidateIdAndIsActive(Integer candidateId, boolean isActive);
+	List<SocialMediaLink> findByResumeIdAndIsActive(Integer resumeId, boolean isActive);
 }

@@ -32,8 +32,8 @@ public class PrefaceManager implements PrefaceService {
 	}
 
 	@Override
-	public DataResult<List<Preface>> findByCandidateId(int candidateId, boolean isActive) {
-		List<Preface> prefaces = this.prefaceDao.findByCandidateIdAndIsActive(candidateId, isActive);
+	public DataResult<List<Preface>> findByResumeId(int resumeId, boolean isActive) {
+		List<Preface> prefaces = this.prefaceDao.findByResumeIdAndIsActive(resumeId, isActive);
 		return new SuccessDataResult<List<Preface>>(prefaces, "Prefaces are listed.");
 	}
 

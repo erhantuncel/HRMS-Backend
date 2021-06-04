@@ -8,5 +8,5 @@ import springreact.hrms.entities.concretes.Preface;
 public interface PrefaceService {
 
 	DataResult<Preface> save(Preface preface);
-	DataResult<List<Preface>> findByCandidateId(int candidateId, boolean isActive);
+	DataResult<List<Preface>> findByResumeId(int resumeId, boolean isActive);
 }

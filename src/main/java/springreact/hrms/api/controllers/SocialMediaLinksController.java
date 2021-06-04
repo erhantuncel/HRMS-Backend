@@ -29,9 +29,9 @@ public class SocialMediaLinksController {
 		return this.socialMediaLinkService.save(socialMediaLink);
 	}
 	
-	@GetMapping(path = "/getall-by-candidate-id/{id}")
-	public Result getAllByCandidateId(@RequestParam("id") int candidateId) {
-		return this.socialMediaLinkService.findByCandidateId(candidateId, true);
+	@GetMapping(path = "/getall-by-resume-id/{id}")
+	public Result getAllByResumeId(@RequestParam("id") int resumeId) {
+		return this.socialMediaLinkService.findByResumeId(resumeId, true);
 	}
 	
 }

@@ -32,15 +32,15 @@ public class JobExperienceManager implements JobExperienceService {
 	}
 
 	@Override
-	public DataResult<List<JobExperience>> findByCandidateId(int candidateId, boolean isActive) {
-		List<JobExperience> jobExperiences = this.jobExperienceDao.findByCandidateIdAndIsActive(candidateId, true);
+	public DataResult<List<JobExperience>> findByResumeId(int resumeId, boolean isActive) {
+		List<JobExperience> jobExperiences = this.jobExperienceDao.findByResumeIdAndIsActive(resumeId, true);
 		return new SuccessDataResult<List<JobExperience>>(jobExperiences, 
 				"Job experiences for candidate id is listed.");
 	}
 
 	@Override
-	public DataResult<List<JobExperience>> findByCandidateIdOrderByEndDateDesc(Integer candidateId, boolean isActive) {
-		List<JobExperience> jobExperiences = this.jobExperienceDao.findByCandidateIdAndIsActiveOrderByEndDateDesc(candidateId, true);
+	public DataResult<List<JobExperience>> findByResumeIdOrderByEndDateDesc(Integer resumeId, boolean isActive) {
+		List<JobExperience> jobExperiences = this.jobExperienceDao.findByResumeIdAndIsActiveOrderByEndDateDesc(resumeId, true);
 		return new SuccessDataResult<List<JobExperience>>(jobExperiences, 
 				"Job experiences for candidate id order by end date in descendin is listed.");
 	}

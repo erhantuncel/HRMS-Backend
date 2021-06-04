@@ -12,6 +12,6 @@ public interface PhotoService {
 
 	DataResult<List<Photo>> getAll();
 	DataResult<Photo> save(Photo photo);
-	DataResult<Photo> save(MultipartFile photoFile, int candidateId);
+	DataResult<Photo> save(MultipartFile photoFile);
 	Result delete(String publicId);
 }

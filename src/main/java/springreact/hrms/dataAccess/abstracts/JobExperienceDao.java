@@ -8,6 +8,6 @@ import springreact.hrms.entities.concretes.JobExperience;
 
 public interface JobExperienceDao extends JpaRepository<JobExperience, Integer>{
 	
-	List<JobExperience> findByCandidateIdAndIsActive(Integer candidateId, Boolean isActive);
-	List<JobExperience> findByCandidateIdAndIsActiveOrderByEndDateDesc(Integer candidateId, Boolean isActive);
+	List<JobExperience> findByResumeIdAndIsActive(Integer resumeId, Boolean isActive);
+	List<JobExperience> findByResumeIdAndIsActiveOrderByEndDateDesc(Integer resumeId, Boolean isActive);
 }

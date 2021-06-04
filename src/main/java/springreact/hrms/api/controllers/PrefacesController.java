@@ -29,9 +29,9 @@ public class PrefacesController {
 		return this.prefaceService.save(preface);
 	}
 	
-	@GetMapping(path = "/getall-by-candidate-id/{id}")
-	public Result getAllPrefacesByCandidateId(@RequestParam(name = "id") int id) {
-		return this.prefaceService.findByCandidateId(id, true);
+	@GetMapping(path = "/getall-by-resume-id/{id}")
+	public Result getAllPrefacesByResumeId(@RequestParam(name = "id") int id) {
+		return this.prefaceService.findByResumeId(id, true);
 	}
 	
 }

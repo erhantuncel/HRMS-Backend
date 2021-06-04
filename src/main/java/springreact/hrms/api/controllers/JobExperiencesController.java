@@ -29,14 +29,14 @@ public class JobExperiencesController {
 		return this.jobExperienceService.save(jobExperience);
 	}
 	
-	@GetMapping(path = "/getall-by-candidate-id/{candidateId}")
-	public Result getAllJobExperiencesByCandidateId(@RequestParam("candidateId") int candidateId) {
-		return this.jobExperienceService.findByCandidateId(candidateId, true);
+	@GetMapping(path = "/getall-by-resume-id/{id}")
+	public Result getAllJobExperiencesByResumeId(@RequestParam("id") int resumeId) {
+		return this.jobExperienceService.findByResumeId(resumeId, true);
 	}
 	
-	@GetMapping(path = "/getall-by-candidate-id-order-by-end-date-desc/{candidateId}")
-	public Result getAllEducationsByCandidateIdOrderByEndDateDesc(@RequestParam("candidateId") int candidateId) {
-		return this.jobExperienceService.findByCandidateIdOrderByEndDateDesc(candidateId, true);
+	@GetMapping(path = "/getall-by-resume-id-order-by-end-date-desc/{id}")
+	public Result getAllEducationsByResumeIdOrderByEndDateDesc(@RequestParam("id") int resumeId) {
+		return this.jobExperienceService.findByResumeIdOrderByEndDateDesc(resumeId, true);
 	}
 	
 }

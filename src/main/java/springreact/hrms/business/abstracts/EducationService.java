@@ -8,6 +8,6 @@ import springreact.hrms.entities.concretes.Education;
 public interface EducationService {
 
 	DataResult<Education> save(Education education);
-	DataResult<List<Education>> findByCandidateId(Integer candidateId, boolean isActive);
-	DataResult<List<Education>> findByCandidateIdOrderByEndDateDesc(Integer candidateId, boolean isActive);
+	DataResult<List<Education>> findByResumeId(Integer resumeId, boolean isActive);
+	DataResult<List<Education>> findByResumeIdOrderByEndDateDesc(Integer resumeId, boolean isActive);
 }

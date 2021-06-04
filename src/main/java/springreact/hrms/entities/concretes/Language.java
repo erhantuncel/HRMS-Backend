@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
@@ -46,7 +47,8 @@ public class Language {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
+	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "candidate_id")
-	private Candidate candidate;
+	@JoinColumn(name = "resume_id")
+	private Resume resume;
 }

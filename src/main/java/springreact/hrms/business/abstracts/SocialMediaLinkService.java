@@ -8,5 +8,5 @@ import springreact.hrms.entities.concretes.SocialMediaLink;
 public interface SocialMediaLinkService {
 
 	DataResult<SocialMediaLink> save(SocialMediaLink socialMediaLink);
-	DataResult<List<SocialMediaLink>> findByCandidateId(Integer candidateId, boolean isActive);
+	DataResult<List<SocialMediaLink>> findByResumeId(Integer resumeId, boolean isActive);
 }

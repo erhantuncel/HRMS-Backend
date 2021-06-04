@@ -29,8 +29,8 @@ public class PhotosController {
 	}
 	
 	@PostMapping(path = "/save")
-	public Result save(MultipartFile photoFile, int candidateId) {
-		return this.photoService.save(photoFile, candidateId);
+	public Result save(MultipartFile photoFile) {
+		return this.photoService.save(photoFile);
 	}
 	
 	@GetMapping(path = "/delete/{id}")

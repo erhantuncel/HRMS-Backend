@@ -32,8 +32,8 @@ public class SkillManager implements SkillService {
 	}
 
 	@Override
-	public DataResult<List<Skill>> findByCandidateId(int candidateId, boolean isActive) {
-		List<Skill> skills = this.skillDao.findByCandidateIdAndIsActive(candidateId, true);
+	public DataResult<List<Skill>> findByResumeId(int resumeId, boolean isActive) {
+		List<Skill> skills = this.skillDao.findByResumeIdAndIsActive(resumeId, true);
 		return new SuccessDataResult<List<Skill>>(skills, "Skills are listed.");
 	}
 

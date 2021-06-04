@@ -3,6 +3,7 @@ package springreact.hrms.entities.concretes;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,9 +48,11 @@ public class JobPosition {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "jobPosition")
 	private List<JobAdvert> jobAdverts;
 	
-	@OneToMany(mappedBy = "jobPosition")
+	@JsonIgnore
+	@OneToMany(mappedBy = "jobPosition", cascade = CascadeType.ALL)
 	private List<JobExperience> jobExperiences;
 }

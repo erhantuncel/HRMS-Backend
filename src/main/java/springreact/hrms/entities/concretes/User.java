@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,6 +47,7 @@ public class User {
 	@Column(name = "is_active")
 	private boolean isActive;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<VerificationCode> verificationCodes;
 	

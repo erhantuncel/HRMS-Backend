@@ -33,8 +33,8 @@ public class SocialMediaLinkManager implements SocialMediaLinkService {
 	}
 
 	@Override
-	public DataResult<List<SocialMediaLink>> findByCandidateId(Integer candidateId, boolean isActive) {
-		List<SocialMediaLink> socialMediaLinks = this.socialMediaLinkDao.findByCandidateIdAndIsActive(candidateId, isActive);
+	public DataResult<List<SocialMediaLink>> findByResumeId(Integer resumeId, boolean isActive) {
+		List<SocialMediaLink> socialMediaLinks = this.socialMediaLinkDao.findByResumeIdAndIsActive(resumeId, isActive);
 		return new SuccessDataResult<List<SocialMediaLink>>(socialMediaLinks, "Social media links are listed.");
 	}
 

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
@@ -47,7 +48,8 @@ public class SocialMediaLink {
 	@JoinColumn(name = "social_media_id")
 	private SocialMedia socialMedia;
 	
+	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "candidate_id")
-	private Candidate candidate;
+	@JoinColumn(name = "resume_id")
+	private Resume resume;
 }

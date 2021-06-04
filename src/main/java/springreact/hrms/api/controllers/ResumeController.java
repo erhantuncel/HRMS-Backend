@@ -8,29 +8,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import springreact.hrms.business.abstracts.SkillService;
+import springreact.hrms.business.abstracts.ResumeService;
 import springreact.hrms.core.utilities.results.Result;
-import springreact.hrms.entities.concretes.Skill;
+import springreact.hrms.entities.concretes.Resume;
 
 @RestController
-@RequestMapping(path = "/api/skills")
-public class SkillsController {
-
-	private SkillService skillService;
+@RequestMapping(path = "/api/resumes")
+public class ResumeController {
+	
+	private ResumeService resumeService;
 
 	@Autowired
-	public SkillsController(SkillService skillService) {
+	public ResumeController(ResumeService resumeService) {
 		super();
-		this.skillService = skillService;
+		this.resumeService = resumeService;
 	}
 	
 	@PostMapping(path = "/add")
-	public Result saveSkill(@RequestBody Skill skill) {
-		return this.skillService.save(skill);
+	public Result saveResume(@RequestBody Resume resume) {
+		return this.resumeService.save(resume);
 	}
 	
-	@GetMapping(path = "/getall-by-resume-id/{id}")
-	public Result getAllByResumeId(@RequestParam("id") int id) {
-		return this.skillService.findByResumeId(id, true);
+	@GetMapping(path = "/getall-by-candidate-id/{id}")
+	public Result getActiveResumeByCandidateId(@RequestParam(name = "id") int id) {
+		return this.resumeService.findByCandidateId(id, true);
 	}
 }

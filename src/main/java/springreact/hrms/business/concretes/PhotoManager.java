@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import springreact.hrms.business.abstracts.CandidateService;
 import springreact.hrms.business.abstracts.PhotoService;
 import springreact.hrms.core.utilities.adapters.imageservices.ImageService;
 import springreact.hrms.core.utilities.results.DataResult;
@@ -18,7 +17,6 @@ import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.core.utilities.results.SuccessDataResult;
 import springreact.hrms.core.utilities.results.SuccessResult;
 import springreact.hrms.dataAccess.abstracts.PhotoDao;
-import springreact.hrms.entities.concretes.Candidate;
 import springreact.hrms.entities.concretes.Photo;
 
 @Service
@@ -26,14 +24,12 @@ public class PhotoManager implements PhotoService {
 
 	PhotoDao photoDao;
 	ImageService imageService;
-	CandidateService candidateService;
 	
 	@Autowired
-	public PhotoManager(PhotoDao photoDao, ImageService imageService, CandidateService candidateService) {
+	public PhotoManager(PhotoDao photoDao, ImageService imageService) {
 		super();
 		this.photoDao = photoDao;
 		this.imageService = imageService;
-		this.candidateService = candidateService;
 	}
 
 	@Override
@@ -50,20 +46,15 @@ public class PhotoManager implements PhotoService {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public DataResult<Photo> save(MultipartFile photoFile, int candidateId) {
+	public DataResult<Photo> save(MultipartFile photoFile) {
 		DataResult<?> uploadResult = this.imageService.save(photoFile);
 		if(uploadResult.isSuccess()) {
 			Map uploadResultData = (Map)uploadResult.getData();
-			Candidate candidate = this.candidateService.findById(candidateId);
-			if(candidate == null) {
-				return new ErrorDataResult<Photo>("There is not a candidate with this candidate id");
-			}
 			Photo photoToSave = new Photo(0, 
 					(String)uploadResultData.get("public_id"), 
 					(String)uploadResultData.get("url"), 
 					true, 
-					new Date(),
-					candidate);
+					new Date(),null);
 			return this.save(photoToSave);
 		}
 		return new ErrorDataResult<Photo>("Photo is not saved to db.");

@@ -32,14 +32,14 @@ public class EducationManager implements EducationService {
 	}
 
 	@Override
-	public DataResult<List<Education>> findByCandidateId(Integer candidateId, boolean isActive) {
-		List<Education> educations = this.educationDao.findByCandidateIdAndIsActiveOrderByEndDateDesc(candidateId, isActive);
+	public DataResult<List<Education>> findByResumeId(Integer resumeId, boolean isActive) {
+		List<Education> educations = this.educationDao.findByResumeIdAndIsActiveOrderByEndDateDesc(resumeId, isActive);
 		return new SuccessDataResult<List<Education>>(educations, "Educations are listed.");
 	}
 
 	@Override
-	public DataResult<List<Education>> findByCandidateIdOrderByEndDateDesc(Integer candidateId, boolean isActive) {
-		List<Education> educations = this.educationDao.findByCandidateIdAndIsActiveOrderByEndDateDesc(candidateId, isActive);
+	public DataResult<List<Education>> findByResumeIdOrderByEndDateDesc(Integer resumeId, boolean isActive) {
+		List<Education> educations = this.educationDao.findByResumeIdAndIsActiveOrderByEndDateDesc(resumeId, isActive);
 		return new SuccessDataResult<List<Education>>(educations, 
 				"Educations ordered by end date in descending are listed.");
 	}

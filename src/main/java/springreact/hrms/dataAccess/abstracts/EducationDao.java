@@ -8,6 +8,6 @@ import springreact.hrms.entities.concretes.Education;
 
 public interface EducationDao extends JpaRepository<Education, Integer> {
 
-	List<Education> findByCandidateIdAndIsActive(Integer candidateId, Boolean isActive);
-	List<Education> findByCandidateIdAndIsActiveOrderByEndDateDesc(Integer candidateId, Boolean isActive);
+	List<Education> findByResumeIdAndIsActive(Integer resumeId, Boolean isActive);
+	List<Education> findByResumeIdAndIsActiveOrderByEndDateDesc(Integer resumeId, Boolean isActive);
 }
