@@ -19,14 +19,16 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "educations")
-public class Education {
+public class Education extends Base {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,13 +51,13 @@ public class Education {
 	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
 	private Date endDate;
 	
-	@Column(name = "is_active")
-	private boolean isActive;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
-	@Column(name = "created_date")
-	private Date createdDate;
+//	@Column(name = "is_active")
+//	private boolean isActive;
+//	
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
+//	@Column(name = "created_date")
+//	private Date createdDate;
 	
 	@JsonBackReference
 	@ManyToOne

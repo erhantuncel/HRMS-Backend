@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class SkillManager implements SkillService {
 
 	@Override
 	public DataResult<Skill> save(Skill skill) {
-		skill.setActive(true);
-		skill.setCreatedDate(new Date());
 		Skill savedSkill = this.skillDao.save(skill);
 		return new SuccessDataResult<Skill>(savedSkill, "Skill is saved to db.");
 	}

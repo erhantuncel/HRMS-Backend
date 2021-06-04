@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class EducationManager implements EducationService {
 
 	@Override
 	public DataResult<Education> save(Education education) {
-		education.setCreatedDate(new Date());
-		education.setActive(true);
 		Education savedEducation = this.educationDao.save(education);
 		return new SuccessDataResult<Education>(savedEducation, "Education is saved to db.");
 	}

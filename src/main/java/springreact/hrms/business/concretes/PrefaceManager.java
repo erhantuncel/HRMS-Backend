@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class PrefaceManager implements PrefaceService {
 
 	@Override
 	public DataResult<Preface> save(Preface preface) {
-		preface.setActive(true);
-		preface.setCreatedDate(new Date());
 		Preface savedPreface = this.prefaceDao.save(preface);
 		return new SuccessDataResult<Preface>(savedPreface, "Preface is saved to db.");
 	}

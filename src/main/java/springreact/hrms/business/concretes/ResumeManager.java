@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,6 @@ public class ResumeManager implements ResumeService {
 	@Override
 	public DataResult<Resume> save(Resume resume) {
 		setResumeToRelatedEntities(resume);
-		resume.setActive(true);
-		resume.setCreatedDate(new Date());
 		Resume savedResume = this.resumeDao.save(resume);
 		return new SuccessDataResult<Resume>(savedResume, "Resume is saved to db.");
 	}

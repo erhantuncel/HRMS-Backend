@@ -1,7 +1,5 @@
 package springreact.hrms.entities.concretes;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +25,7 @@ public class StaffConfirmationEmployer extends StaffConfirmation {
 	private Employer employer;
 	
 	public StaffConfirmationEmployer(int id, Staff staff, Employer employer) {
-		super(id, staff, true, true, new Date());
+		super(id, staff, true);
 		this.employer = employer;
 	}
 }

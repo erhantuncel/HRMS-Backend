@@ -1,7 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +22,6 @@ public class LanguageManager implements LanguageService {
 
 	@Override
 	public DataResult<Language> save(Language language) {
-		language.setActive(true);
-		language.setCreatedDate(new Date());
 		Language savedLanguage = this.languageDao.save(language);
 		return new SuccessDataResult<Language>(savedLanguage, "Language is saved to db");
 	}

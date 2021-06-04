@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,9 +51,7 @@ public class PhotoManager implements PhotoService {
 			Map uploadResultData = (Map)uploadResult.getData();
 			Photo photoToSave = new Photo(0, 
 					(String)uploadResultData.get("public_id"), 
-					(String)uploadResultData.get("url"), 
-					true, 
-					new Date(),null);
+					(String)uploadResultData.get("url"), null);
 			return this.save(photoToSave);
 		}
 		return new ErrorDataResult<Photo>("Photo is not saved to db.");

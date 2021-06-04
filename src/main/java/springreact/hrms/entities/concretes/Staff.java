@@ -1,6 +1,5 @@
 package springreact.hrms.entities.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,7 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +22,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "staffs")
 @PrimaryKeyJoinColumn(name = "staff_id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", 
-	"confirmations", "verificationCodes"})
 public class Staff extends User {
 
 	@Column(name = "first_name")
@@ -33,12 +30,13 @@ public class Staff extends User {
 	@Column(name =  "last_name")
 	private String lastName;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "staff")
 	private List<StaffConfirmation> confirmations;
 	
 	public Staff(int id, String email, String password,
 				String firstName, String lastName) {
-		super(0, email, password, true, null, new Date());
+		super(id, email, password, null);
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

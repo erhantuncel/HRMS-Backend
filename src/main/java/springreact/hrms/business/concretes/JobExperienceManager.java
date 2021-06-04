@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class JobExperienceManager implements JobExperienceService {
 
 	@Override
 	public DataResult<JobExperience> save(JobExperience jobExperience) {
-		jobExperience.setActive(true);
-		jobExperience.setCreatedDate(new Date());
 		JobExperience savedJobExperince = this.jobExperienceDao.save(jobExperience);
 		return new SuccessDataResult<JobExperience>(savedJobExperince, "Job experience is saved to db.");
 	}

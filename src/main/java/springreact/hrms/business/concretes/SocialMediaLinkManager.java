@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class SocialMediaLinkManager implements SocialMediaLinkService {
 
 	@Override
 	public DataResult<SocialMediaLink> save(SocialMediaLink socialMediaLink) {
-		socialMediaLink.setActive(true);
-		socialMediaLink.setCreatedDate(new Date());
 		SocialMediaLink savedSocialMediaLink = this.socialMediaLinkDao.save(socialMediaLink);
 		return new SuccessDataResult<SocialMediaLink>(savedSocialMediaLink, 
 				"Social media link is saved to db.");

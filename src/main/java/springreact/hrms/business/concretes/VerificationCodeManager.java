@@ -1,6 +1,5 @@
 package springreact.hrms.business.concretes;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class VerificationCodeManager implements VerificationCodeService {
 	public DataResult<VerificationCode> generateCode(int userId) {
 		UUID uuid = UUID.randomUUID();
 		User user = this.userService.findById(userId);
-		VerificationCode verificationCodeToSave = new VerificationCode(0, user, uuid.toString(), false, true, new Date());
+		VerificationCode verificationCodeToSave = new VerificationCode(0, user, uuid.toString(), false);
 		return save(verificationCodeToSave);
 	}
 

@@ -1,6 +1,5 @@
 package springreact.hrms.entities.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,26 +11,24 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "verificationCodes"})
-public class User {
+public class User extends Base {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,16 +41,16 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "is_active")
-	private boolean isActive;
+//	@Column(name = "is_active")
+//	private boolean isActive;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<VerificationCode> verificationCodes;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
-	@Column(name = "created_date")
-	private Date createdDate;
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
+//	@Column(name = "created_date")
+//	private Date createdDate;
 	
 }

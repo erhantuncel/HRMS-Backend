@@ -1,6 +1,5 @@
 package springreact.hrms.entities.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,10 +22,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "candidates")
 @PrimaryKeyJoinColumn(name = "candidate_id")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", 
-//	"educations", "jobExperiences", "languages", 
-//	"verificationCodes", "photos", "socialMediaLinks",
-//	"prefaces"})
 public class Candidate extends User {
 
 	@Column(name = "identity_number")
@@ -48,7 +43,7 @@ public class Candidate extends User {
 	
 	public Candidate(int id, String identityNumber, String firstName, 
 			String lastName, String email, String yearOfBirth, String password) {
-		super(id, email, password, false, null, new Date());
+		super(id, email, password, null);
 		this.identityNumber = identityNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;

@@ -1,6 +1,5 @@
 package springreact.hrms.entities.concretes;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,24 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "cities")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobAdverts"})
-public class City {
+public class City extends Base {
 
 	@Id
 	@Column(name = "id")
@@ -34,14 +30,15 @@ public class City {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "is_active")
-	private boolean isActive;
+//	@Column(name = "is_active")
+//	private boolean isActive;
+//	
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
+//	@Column(name = "created_date")
+//	private Date createdDate;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
-	@Column(name = "created_date")
-	private Date createdDate;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "city")
 	private List<JobAdvert> jobAdverts;
 }
