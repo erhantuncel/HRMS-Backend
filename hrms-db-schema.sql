@@ -119,21 +119,32 @@ CREATE TABLE public.job_adverts
 CREATE TABLE public.photos
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    candidate_id int NOT NULL,
     public_id character varying(50) NOT NULL,
     url character varying(250) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_photos PRIMARY KEY (id),
-    CONSTRAINT fk_photos_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE,
     CONSTRAINT uc_photos_public_id UNIQUE (public_id),
     CONSTRAINT uc_photos_url UNIQUE (url)
+);
+
+CREATE TABLE public.resumes
+(
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    candidate_id int NOT NULL,
+    photo_id int NOT NULL,
+    name character varying(30) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_resumes PRIMARY KEY (id),
+    CONSTRAINT fk_resumes_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE,
+    CONSTRAINT fk_resumes_photos FOREIGN KEY (photo_id) REFERENCES public.photos (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.educations
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    candidate_id int NOT NULL,
+    resume_id int NOT NULL,
     school_name character varying(200) NOT NULL,
     department character varying(200) NOT NULL,
     start_date timestamp without time zone NOT NULL,
@@ -141,14 +152,14 @@ CREATE TABLE public.educations
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_educations PRIMARY KEY (id),
-    CONSTRAINT fk_educations_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+    CONSTRAINT fk_educations_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.job_experiences
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     job_position_id int NOT NULL,
-    candidate_id int NOT NULL,
+    resume_id int NOT NULL,
     workplace_name character varying(200) NOT NULL,
     start_date timestamp without time zone NOT NULL,
     end_date timestamp without time zone NULL,
@@ -156,19 +167,19 @@ CREATE TABLE public.job_experiences
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_job_experiences PRIMARY KEY (id),
     CONSTRAINT fk_job_experiences_job_positions FOREIGN KEY (job_position_id) REFERENCES public.job_positions (id) ON DELETE CASCADE,
-    CONSTRAINT fk_job_experiences_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+    CONSTRAINT fk_job_experiences_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.languages
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    candidate_id int NOT NULL,
+    resume_id int NOT NULL,
     name character varying(50) NOT NULL,
     level char(1) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_languages PRIMARY KEY (id),
-    CONSTRAINT fk_languages_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+    CONSTRAINT fk_languages_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.social_medias
@@ -185,41 +196,42 @@ CREATE TABLE public.social_media_links
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     social_media_id int NOT NULL,
-    candidate_id int NOT NULL,
+    resume_id int NOT NULL,
     url character varying(250) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_social_media_links PRIMARY KEY (id),
     CONSTRAINT fk_social_media_links_social_medias FOREIGN KEY (social_media_id) REFERENCES public.social_medias (id) ON DELETE CASCADE,
-    CONSTRAINT fk_social_media_links_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE,
+    CONSTRAINT fk_social_media_links_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE,
     CONSTRAINT uc_social_media_links_url UNIQUE (url)
 );
 
 CREATE TABLE public.skills
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    candidate_id int NOT NULL,
+    resume_id int NOT NULL,
     name character varying(50) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_skills PRIMARY KEY (id),
-    CONSTRAINT fk_skills_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+    CONSTRAINT fk_skills_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.prefaces
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    candidate_id int NOT NULL,
+    resume_id int NOT NULL,
     content text NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_prefaces PRIMARY KEY (id),
-    CONSTRAINT fk_prefaces_candidates FOREIGN KEY (candidate_id) REFERENCES public.candidates (candidate_id) ON DELETE CASCADE
+    CONSTRAINT fk_prefaces_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
 );
 
 
 SET TIMEZONE='TURKEY';
 
+-- Cities
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (1, 'ADANA', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (2, 'ADIYAMAN', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (3, 'AFYON', true, CURRENT_TIMESTAMP);
@@ -301,3 +313,6 @@ INSERT INTO public.cities (id, name, is_active, created_date) VALUES (78, 'KARAB
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (79, 'KİLİS', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (80, 'OSMANİYE', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (81, 'DÜZCE', true, CURRENT_TIMESTAMP);
+-- Social Media
+INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('Github', true, CURRENT_TIMESTAMP);
+INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('LinkedIn', true, CURRENT_TIMESTAMP);
