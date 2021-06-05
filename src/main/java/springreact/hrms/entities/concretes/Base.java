@@ -23,7 +23,6 @@ public class Base {
 	
 	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
-//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
 	@Column(name = "created_date")
 	private Date createdDate = new Date();
 }
