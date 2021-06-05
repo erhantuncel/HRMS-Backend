@@ -134,6 +134,7 @@ CREATE TABLE public.resumes
     candidate_id int NOT NULL,
     photo_id int NOT NULL,
     name character varying(30) NOT NULL,
+    preface text NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_resumes PRIMARY KEY (id),
@@ -215,17 +216,6 @@ CREATE TABLE public.skills
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_skills PRIMARY KEY (id),
     CONSTRAINT fk_skills_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
-);
-
-CREATE TABLE public.prefaces
-(
-    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    resume_id int NOT NULL,
-    content text NOT NULL,
-    is_active boolean NOT NULL,
-    created_date timestamp without time zone NOT NULL,
-    CONSTRAINT pk_prefaces PRIMARY KEY (id),
-    CONSTRAINT fk_prefaces_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
 );
 
 
