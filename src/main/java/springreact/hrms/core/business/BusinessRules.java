@@ -1,4 +1,4 @@
-package springreact.hrms.core.utilities.business;
+package springreact.hrms.core.business;
 
 import springreact.hrms.core.utilities.results.Result;
 

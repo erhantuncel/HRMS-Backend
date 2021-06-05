@@ -1,4 +1,4 @@
-package springreact.hrms.core.utilities.adapters.mernis;
+package springreact.hrms.core.adapters.mernis;
 
 import springreact.hrms.core.utilities.results.Result;
 

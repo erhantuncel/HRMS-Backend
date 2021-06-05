@@ -1,4 +1,4 @@
-package springreact.hrms.core.utilities.verifications;
+package springreact.hrms.core.verifications;
 
 import org.springframework.stereotype.Service;
 

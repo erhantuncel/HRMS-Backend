@@ -1,4 +1,4 @@
-package springreact.hrms.core.utilities.verifications;
+package springreact.hrms.core.verifications;
 
 import springreact.hrms.core.utilities.results.Result;
 

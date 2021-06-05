@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springreact.hrms.business.abstracts.JobAdvertService;
-import springreact.hrms.core.utilities.business.BusinessRules;
+import springreact.hrms.core.business.BusinessRules;
 import springreact.hrms.core.utilities.results.DataResult;
 import springreact.hrms.core.utilities.results.ErrorDataResult;
 import springreact.hrms.core.utilities.results.ErrorResult;

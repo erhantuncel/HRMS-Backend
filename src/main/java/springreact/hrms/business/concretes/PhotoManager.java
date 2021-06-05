@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import springreact.hrms.business.abstracts.PhotoService;
-import springreact.hrms.core.utilities.adapters.imageservices.ImageService;
+import springreact.hrms.core.adapters.imageservices.ImageService;
 import springreact.hrms.core.utilities.results.DataResult;
 import springreact.hrms.core.utilities.results.ErrorDataResult;
 import springreact.hrms.core.utilities.results.ErrorResult;

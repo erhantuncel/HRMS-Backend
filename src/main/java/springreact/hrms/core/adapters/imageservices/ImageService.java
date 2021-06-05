@@ -1,4 +1,4 @@
-package springreact.hrms.core.utilities.adapters.imageservices;
+package springreact.hrms.core.adapters.imageservices;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,4 +1,4 @@
-package springreact.hrms.core.utilities.adapters.mernis;
+package springreact.hrms.core.adapters.mernis;
 
 import org.springframework.stereotype.Service;
 
