@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -36,16 +38,20 @@ public class Resume extends Base {
 	
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
+	@NotNull
 	private Candidate candidate;
 	
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
 	
 	@Column(name = "preface", columnDefinition = "TEXT")
+	@NotEmpty
 	private String preface;
 	
 	@ManyToOne
 	@JoinColumn(name = "photo_id")
+	@NotNull
 	private Photo photo;
 	
 	@JsonManagedReference

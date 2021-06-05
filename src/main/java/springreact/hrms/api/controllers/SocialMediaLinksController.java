@@ -1,5 +1,7 @@
 package springreact.hrms.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class SocialMediaLinksController {
 	}
 	
 	@PostMapping(path = "/add")
-	public Result saveSocialMediaLink(@RequestBody SocialMediaLink socialMediaLink) {
+	public Result saveSocialMediaLink(@RequestBody @Valid SocialMediaLink socialMediaLink) {
 		return this.socialMediaLinkService.save(socialMediaLink);
 	}
 	

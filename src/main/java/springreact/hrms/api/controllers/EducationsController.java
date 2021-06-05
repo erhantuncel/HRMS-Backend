@@ -1,5 +1,7 @@
 package springreact.hrms.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +37,7 @@ public class EducationsController {
 	}
 	
 	@PostMapping(path = "/add")
-	public Result saveEducation(@RequestBody Education education) {
+	public Result saveEducation(@RequestBody @Valid Education education) {
 		return this.educationService.save(education);
 	}
 

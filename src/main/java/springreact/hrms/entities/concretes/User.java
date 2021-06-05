@@ -11,6 +11,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -36,21 +39,17 @@ public class User extends Base {
 	private int id;
 	
 	@Column(name = "email")
+	@NotEmpty
+	@Email
 	private String email;
 	
 	@Column(name = "password")
+	@NotEmpty
+	@Size(min = 6)
 	private String password;
-	
-//	@Column(name = "is_active")
-//	private boolean isActive;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<VerificationCode> verificationCodes;
-	
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
-//	@Column(name = "created_date")
-//	private Date createdDate;
 	
 }

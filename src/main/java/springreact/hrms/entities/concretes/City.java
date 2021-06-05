@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,15 +29,8 @@ public class City extends Base {
 	private int id;
 	
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
-	
-//	@Column(name = "is_active")
-//	private boolean isActive;
-//	
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
-//	@Column(name = "created_date")
-//	private Date createdDate;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "city")

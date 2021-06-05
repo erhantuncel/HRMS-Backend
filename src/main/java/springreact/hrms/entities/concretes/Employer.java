@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,12 +27,16 @@ import lombok.NoArgsConstructor;
 public class Employer extends User {
 
 	@Column(name = "company_name")
+	@NotEmpty
 	private String companyName;
 	
 	@Column(name = "web_page")
+	@NotEmpty
 	private String webPage;
 	
 	@Column(name = "phone")
+	@NotEmpty
+	@Size(min = 10, max=10)
 	private String phone;
 	
 	@JsonIgnore

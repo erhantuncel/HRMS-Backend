@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -33,6 +35,7 @@ public class JobAdvert extends Base {
 	private int id;
 	
 	@Column(name = "job_definition", columnDefinition = "TEXT")
+	@NotEmpty
 	private String jobDefinition;
 	
 	@Column(name = "min_salary")
@@ -46,18 +49,22 @@ public class JobAdvert extends Base {
 	
 	@Column(name = "deadline")
 	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy")
+	@NotNull
 	private LocalDate deadline;
 	
 	@ManyToOne
 	@JoinColumn(name = "employer_id")
+	@NotNull
 	private Employer employer;
 	
 	@ManyToOne
 	@JoinColumn(name = "job_position_id")
+	@NotNull
 	private JobPosition jobPosition;
 	
 	@ManyToOne
 	@JoinColumn(name = "city_id")
+	@NotNull
 	private City city;
 	
 	

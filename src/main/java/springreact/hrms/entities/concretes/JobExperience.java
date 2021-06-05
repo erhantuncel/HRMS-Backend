@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,11 +38,13 @@ public class JobExperience extends Base {
 	private int id;
 	
 	@Column(name = "workplace_name")
+	@NotEmpty
 	private String workplaceName;
 	
 	@Column(name = "start_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
+	@NotNull
 	private Date startDate;
 	
 	@Column(name = "end_date")
@@ -50,10 +54,12 @@ public class JobExperience extends Base {
 	
 	@ManyToOne
 	@JoinColumn(name = "job_position_id")
+	@NotNull
 	private JobPosition jobPosition;
 	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "resume_id")
+	@NotNull
 	private Resume resume;
 }

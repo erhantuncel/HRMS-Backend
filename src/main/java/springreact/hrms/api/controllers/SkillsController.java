@@ -1,5 +1,7 @@
 package springreact.hrms.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class SkillsController {
 	}
 	
 	@PostMapping(path = "/add")
-	public Result saveSkill(@RequestBody Skill skill) {
+	public Result saveSkill(@RequestBody @Valid Skill skill) {
 		return this.skillService.save(skill);
 	}
 	

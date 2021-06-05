@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -30,13 +32,16 @@ public class Language extends Base {
 	private int id;
 	
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
 	
 	@Column(name = "level")
+	@NotNull
 	private char level;
 	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "resume_id")
+	@NotNull
 	private Resume resume;
 }

@@ -1,5 +1,7 @@
 package springreact.hrms.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class JobExperiencesController {
 	}
 
 	@PostMapping(path = "/add")
-	public Result saveJobExperience(@RequestBody JobExperience jobExperience) {
+	public Result saveJobExperience(@RequestBody @Valid JobExperience jobExperience) {
 		return this.jobExperienceService.save(jobExperience);
 	}
 	

@@ -1,5 +1,7 @@
 package springreact.hrms.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +25,7 @@ public class StaffsController {
 	}
 
 	@PostMapping(path = "/add")
-	public Result add(@RequestBody Staff staff) {
+	public Result add(@RequestBody @Valid Staff staff) {
 		return this.staffService.save(staff);
 	}
 

@@ -1,5 +1,7 @@
 package springreact.hrms.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +28,12 @@ public class AuthController {
 	}
 	
 	@PostMapping(path = "/registercandidate")
-	public Result registerCandidate(@RequestBody CandidateForRegisterationDto candidateDto) {
+	public Result registerCandidate(@RequestBody @Valid CandidateForRegisterationDto candidateDto) {
 		return this.authService.registerCandidate(candidateDto);
 	}
 	
 	@PostMapping(path = "/registeremployer")
-	public Result registerEmployer(@RequestBody EmployerForRegistrationDto employerDto) {
+	public Result registerEmployer(@RequestBody @Valid EmployerForRegistrationDto employerDto) {
 		return this.authService.registerEmployer(employerDto);
 	}
 	

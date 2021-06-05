@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,9 +33,11 @@ public class Photo extends Base {
 	private int id;
 	
 	@Column(name = "public_id")
+	@NotEmpty
 	private String publicId;
 	
 	@Column(name = "url")
+	@NotEmpty
 	private String url;
 	
 	@JsonIgnore

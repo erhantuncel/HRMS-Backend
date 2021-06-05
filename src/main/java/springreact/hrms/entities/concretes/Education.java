@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,28 +38,23 @@ public class Education extends Base {
 	private int id;
 	
 	@Column(name = "school_name")
+	@NotEmpty
 	private String schoolName;
 	
 	@Column(name = "department")
+	@NotEmpty
 	private String department;
 	
 	@Column(name = "start_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
+	@NotNull
 	private Date startDate;
 	
 	@Column(name = "end_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
 	private Date endDate;
-	
-//	@Column(name = "is_active")
-//	private boolean isActive;
-//	
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone="Europe/Istanbul")
-//	@Column(name = "created_date")
-//	private Date createdDate;
 	
 	@JsonBackReference
 	@ManyToOne
