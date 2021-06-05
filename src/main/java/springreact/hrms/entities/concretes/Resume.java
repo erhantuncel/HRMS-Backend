@@ -41,6 +41,9 @@ public class Resume extends Base {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "preface", columnDefinition = "TEXT")
+	private String preface;
+	
 	@ManyToOne
 	@JoinColumn(name = "photo_id")
 	private Photo photo;
@@ -62,10 +65,6 @@ public class Resume extends Base {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
 	private List<SocialMediaLink> socialMediaLinks;
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
-	private List<Preface> prefaces;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)

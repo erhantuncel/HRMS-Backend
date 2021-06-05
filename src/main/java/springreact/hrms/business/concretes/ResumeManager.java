@@ -14,7 +14,6 @@ import springreact.hrms.entities.concretes.Education;
 import springreact.hrms.entities.concretes.JobExperience;
 import springreact.hrms.entities.concretes.JobPosition;
 import springreact.hrms.entities.concretes.Language;
-import springreact.hrms.entities.concretes.Preface;
 import springreact.hrms.entities.concretes.Resume;
 import springreact.hrms.entities.concretes.Skill;
 import springreact.hrms.entities.concretes.SocialMediaLink;
@@ -69,11 +68,6 @@ public class ResumeManager implements ResumeService {
 		if(resume.getSocialMediaLinks() != null) {			
 			for(SocialMediaLink socialMediaLink : resume.getSocialMediaLinks()) {
 				socialMediaLink.setResume(resume);
-			}
-		}
-		if(resume.getPrefaces() != null) {			
-			for(Preface preface : resume.getPrefaces()) {
-				preface.setResume(resume);
 			}
 		}
 		if(resume.getSkills() != null) {			
