@@ -59,5 +59,6 @@ public class Education extends Base {
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "resume_id")
+	@NotNull
 	private Resume resume;
 }
