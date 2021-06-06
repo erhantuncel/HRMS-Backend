@@ -3,6 +3,7 @@ package springreact.hrms.api.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.JobExperienceService;
-import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.entities.concretes.JobExperience;
 
 @RestController
@@ -27,18 +27,18 @@ public class JobExperiencesController {
 	}
 
 	@PostMapping(path = "/add")
-	public Result saveJobExperience(@RequestBody @Valid JobExperience jobExperience) {
-		return this.jobExperienceService.save(jobExperience);
+	public ResponseEntity<?> saveJobExperience(@RequestBody @Valid JobExperience jobExperience) {
+		return ResponseEntity.ok(this.jobExperienceService.save(jobExperience));
 	}
 	
 	@GetMapping(path = "/getall-by-resume-id/{id}")
-	public Result getAllJobExperiencesByResumeId(@RequestParam("id") int resumeId) {
-		return this.jobExperienceService.findByResumeId(resumeId, true);
+	public ResponseEntity<?> getAllJobExperiencesByResumeId(@RequestParam("id") int resumeId) {
+		return ResponseEntity.ok(this.jobExperienceService.findByResumeId(resumeId, true));
 	}
 	
 	@GetMapping(path = "/getall-by-resume-id-order-by-end-date-desc/{id}")
-	public Result getAllEducationsByResumeIdOrderByEndDateDesc(@RequestParam("id") int resumeId) {
-		return this.jobExperienceService.findByResumeIdOrderByEndDateDesc(resumeId, true);
+	public ResponseEntity<?> getAllJobExperiencesByResumeIdOrderByEndDateDesc(@RequestParam("id") int resumeId) {
+		return ResponseEntity.ok(this.jobExperienceService.findByResumeIdOrderByEndDateDesc(resumeId, true));
 	}
 	
 }

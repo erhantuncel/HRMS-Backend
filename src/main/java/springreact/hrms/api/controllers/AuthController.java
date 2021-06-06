@@ -3,6 +3,7 @@ package springreact.hrms.api.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.AuthService;
-import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.entities.dtos.CandidateForRegisterationDto;
 import springreact.hrms.entities.dtos.EmployerForRegistrationDto;
 
@@ -28,25 +28,25 @@ public class AuthController {
 	}
 	
 	@PostMapping(path = "/registercandidate")
-	public Result registerCandidate(@RequestBody @Valid CandidateForRegisterationDto candidateDto) {
-		return this.authService.registerCandidate(candidateDto);
+	public ResponseEntity<?> registerCandidate(@RequestBody @Valid CandidateForRegisterationDto candidateDto) {
+		return ResponseEntity.ok(this.authService.registerCandidate(candidateDto));
 	}
 	
 	@PostMapping(path = "/registeremployer")
-	public Result registerEmployer(@RequestBody @Valid EmployerForRegistrationDto employerDto) {
-		return this.authService.registerEmployer(employerDto);
+	public ResponseEntity<?> registerEmployer(@RequestBody @Valid EmployerForRegistrationDto employerDto) {
+		return ResponseEntity.ok(this.authService.registerEmployer(employerDto));
 	}
 	
 	@GetMapping(path = "/verifyemail/{userId}/{code}")
-	public Result verifyEmail(@RequestParam("userId") Integer userId, 
+	public ResponseEntity<?> verifyEmail(@RequestParam("userId") Integer userId, 
 								@RequestParam("code") String code) {
-		return this.authService.verifyEmail(userId, code);
+		return ResponseEntity.ok(this.authService.verifyEmail(userId, code));
 	}
 	
 	@PostMapping(path = "/confirmstaff/{employerId}/{staffId}")
-	public Result confirmStaff(@RequestParam("employerId") Integer employerId,
+	public ResponseEntity<?> confirmStaff(@RequestParam("employerId") Integer employerId,
 								@RequestParam("staffId") Integer staffId) {
-		return authService.confirmEmployer(employerId, staffId);
+		return ResponseEntity.ok(this.authService.confirmEmployer(employerId, staffId));
 	}
 	
 }

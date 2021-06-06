@@ -3,6 +3,7 @@ package springreact.hrms.api.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.SkillService;
-import springreact.hrms.core.utilities.results.Result;
 import springreact.hrms.entities.concretes.Skill;
 
 @RestController
@@ -27,12 +27,12 @@ public class SkillsController {
 	}
 	
 	@PostMapping(path = "/add")
-	public Result saveSkill(@RequestBody @Valid Skill skill) {
-		return this.skillService.save(skill);
+	public ResponseEntity<?> saveSkill(@RequestBody @Valid Skill skill) {
+		return ResponseEntity.ok(this.skillService.save(skill));
 	}
 	
 	@GetMapping(path = "/getall-by-resume-id/{id}")
-	public Result getAllByResumeId(@RequestParam("id") int id) {
-		return this.skillService.findByResumeId(id, true);
+	public ResponseEntity<?> getAllSkillsByResumeId(@RequestParam("id") int id) {
+		return ResponseEntity.ok(this.skillService.findByResumeId(id, true));
 	}
 }
