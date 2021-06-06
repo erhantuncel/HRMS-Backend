@@ -1,7 +1,7 @@
 package springreact.hrms.core.entities;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -17,8 +17,7 @@ public class ApiExceptionResponse {
 
 	@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", timezone="Europe/Istanbul")
 	private Date date;
-	private String message;
 	private String type;
 	private String cause;
-	private List<String> details;
+	private Map<String,String> details;
 }
