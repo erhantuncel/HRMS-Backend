@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.SocialMediaLinkService;
@@ -34,7 +34,7 @@ public class SocialMediaLinksController {
 	}
 	
 	@GetMapping(path = "/getall-by-resume-id/{id}")
-	public ResponseEntity<?> getAllSocialMediaLinksByResumeId(@RequestParam("id") int resumeId) {
+	public ResponseEntity<?> getAllSocialMediaLinksByResumeId(@PathVariable("id") int resumeId) {
 		return ResponseEntity.ok(this.socialMediaLinkService.findByResumeId(resumeId, true));
 	}
 	

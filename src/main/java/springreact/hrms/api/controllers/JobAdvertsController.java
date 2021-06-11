@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +50,7 @@ public class JobAdvertsController {
 	}
 	
 	@GetMapping(path = "getall-active-by-employer-id/{employerId}")
-	public ResponseEntity<?> getAllActiveByEmployer(@RequestParam("employerId") Integer employerId) {
+	public ResponseEntity<?> getAllActiveByEmployer(@PathVariable("employerId") Integer employerId) {
 		return ResponseEntity.ok(this.jobAdvertService.findByIsActiveAndEmployerId(true, employerId));
 	}
 	

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springreact.hrms.business.abstracts.EducationService;
@@ -29,12 +29,12 @@ public class EducationsController {
 	}
 	
 	@GetMapping(path = "/getall-by-resume-id/{id}")
-	public ResponseEntity<?> getAllActiveEducationsByResumeId(@RequestParam("id") int resumeId) {
+	public ResponseEntity<?> getAllActiveEducationsByResumeId(@PathVariable("id") int resumeId) {
 		return ResponseEntity.ok(this.educationService.findByResumeId(resumeId, true));
 	}
 	
 	@GetMapping(path = "/getall-by-resume-id-order-by-end-date-desc/{id}")
-	public ResponseEntity<?> getAllEducationsByResumeIdOrderByEndDateDesc(@RequestParam("id") int resumeId) {
+	public ResponseEntity<?> getAllEducationsByResumeIdOrderByEndDateDesc(@PathVariable("id") int resumeId) {
 		return ResponseEntity.ok(this.educationService.findByResumeIdOrderByEndDateDesc(resumeId, true));
 	}
 	
