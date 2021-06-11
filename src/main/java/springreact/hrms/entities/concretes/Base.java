@@ -7,7 +7,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +23,8 @@ public class Base {
 	@Column(name = "is_active")
 	private boolean isActive = true;
 	
-	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy")
 	@Column(name = "created_date")
 	private Date createdDate = new Date();
 }
