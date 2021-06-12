@@ -9,6 +9,7 @@ import springreact.hrms.entities.concretes.JobAdvert;
 public interface JobAdvertService {
 
 	Result save(JobAdvert jobAdvert);
+	DataResult<JobAdvert> findById(Integer id);
 	DataResult<List<JobAdvert>> findByIsActive(Boolean isActive);
 	DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateAsc(Boolean isActive);
 	DataResult<List<JobAdvert>> findByIsActiveOrderByCreatedDateDesc(Boolean isActive);

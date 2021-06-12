@@ -31,6 +31,7 @@ public class JobAdvertsController {
 
 	@PostMapping(path = "/add")
 	public ResponseEntity<?> add(@RequestBody @Valid JobAdvert jobAdvert) {
+		jobAdvert.setActive(false);
 		return ResponseEntity.ok(this.jobAdvertService.save(jobAdvert));
 	}
 	

@@ -38,6 +38,12 @@ public class JobAdvertManager implements JobAdvertService {
 	}
 	
 	@Override
+	public DataResult<JobAdvert> findById(Integer id) {
+		JobAdvert jobAdvert = this.jobAdvertDao.findById(id).orElse(null);
+		return new SuccessDataResult<JobAdvert>(jobAdvert);
+	}
+	
+	@Override
 	public DataResult<List<JobAdvert>> findByIsActive(Boolean isActive) {
 		List<JobAdvert> jobAdverts = this.jobAdvertDao.findByIsActive(isActive);
 		return new SuccessDataResult<List<JobAdvert>>(jobAdverts, "Job Adverts are listed.");
@@ -85,6 +91,8 @@ public class JobAdvertManager implements JobAdvertService {
 		}
 		return new SuccessResult();
 	}
+
+	
 
 	
 }

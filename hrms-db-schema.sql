@@ -99,7 +99,7 @@ CREATE TABLE public.cities
 
 CREATE TABLE public.work_locations
 (
-    id int NOT NULL,
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     name character varying(20) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE public.work_locations
 
 CREATE TABLE public.job_types
 (
-    id int NOT NULL,
+    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     name character varying(20) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE public.job_adverts
     max_salary double precision,
     open_position_count int NOT NULL,
     deadline date NOT NULL,
-    is_active boolean NOT NULL,
+    is_active boolean NOT NULL, 
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_job_adverts PRIMARY KEY (id),
     CONSTRAINT fk_job_adverts_employers FOREIGN KEY (employer_id) REFERENCES public.employers (employer_id) ON DELETE CASCADE,
@@ -138,6 +138,15 @@ CREATE TABLE public.job_adverts
     CONSTRAINT fk_job_adverts_cities FOREIGN KEY (city_id) REFERENCES public.cities (id) ON DELETE CASCADE,
     CONSTRAINT fk_job_adverts_work_locations FOREIGN KEY (work_location_id) REFERENCES public.work_locations (id) ON DELETE CASCADE,
     CONSTRAINT fk_job_adverts_job_types FOREIGN KEY (job_type_id) REFERENCES public.job_types (id) ON DELETE CASCADE
+);
+
+CREATE TABLE public.staff_confirmations_job_advert
+(
+    job_advert_confirmation_id integer NOT NULL,
+    job_advert_id int NOT NULL,
+    CONSTRAINT pk_staff_confirmations_job_advert PRIMARY KEY (job_advert_confirmation_id),
+    CONSTRAINT fk_staff_confirmations_job_advert_staff_confirmations FOREIGN KEY (job_advert_confirmation_id) REFERENCES public.staff_confirmations (id) ON DELETE CASCADE,
+    CONSTRAINT fk_staff_confirmations_job_advert_job_adverts FOREIGN KEY (job_advert_id) REFERENCES public.job_adverts (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.photos
@@ -327,12 +336,17 @@ INSERT INTO public.cities (id, name, is_active, created_date) VALUES (78, 'KARAB
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (79, 'KİLİS', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (80, 'OSMANİYE', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (81, 'DÜZCE', true, CURRENT_TIMESTAMP);
+-- Job Positions
+INSERT INTO public.job_positions(name, is_active, created_date) VALUES ('Backend Geliştirici', true, CURRENT_TIMESTAMP);
+INSERT INTO public.job_positions(name, is_active, created_date) VALUES ('Frontend Geliştirici', true, CURRENT_TIMESTAMP);
+INSERT INTO public.job_positions(name, is_active, created_date) VALUES ('Yazılım Mimarı', true, CURRENT_TIMESTAMP);
+INSERT INTO public.job_positions(name, is_active, created_date) VALUES ('Yazılım Uzmanı', true, CURRENT_TIMESTAMP);
 -- Work Types
-INSERT INTO public.work_locations (id, name, is_active, created_date) VALUES (1, 'Ofis', true, CURRENT_TIMESTAMP);
-INSERT INTO public.work_locations (id, name, is_active, created_date) VALUES (2, 'Uzak', true, CURRENT_TIMESTAMP);
+INSERT INTO public.work_locations (name, is_active, created_date) VALUES ('Ofis', true, CURRENT_TIMESTAMP);
+INSERT INTO public.work_locations (name, is_active, created_date) VALUES ('Uzak', true, CURRENT_TIMESTAMP);
 -- Work Times
-INSERT INTO public.job_types (id, name, is_active, created_date) VALUES (1, 'Tam Zamanlı', true, CURRENT_TIMESTAMP);
-INSERT INTO public.job_types (id, name, is_active, created_date) VALUES (2, 'Yarı Zamanlı', true, CURRENT_TIMESTAMP);
+INSERT INTO public.job_types (name, is_active, created_date) VALUES ('Tam Zamanlı', true, CURRENT_TIMESTAMP);
+INSERT INTO public.job_types (name, is_active, created_date) VALUES ('Yarı Zamanlı', true, CURRENT_TIMESTAMP);
 -- Social Media
 INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('Github', true, CURRENT_TIMESTAMP);
 INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('LinkedIn', true, CURRENT_TIMESTAMP);

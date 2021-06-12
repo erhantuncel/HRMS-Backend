@@ -24,7 +24,7 @@ public class Base {
 	private boolean isActive = true;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy")
+	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss", timezone = "Europe/Istanbul")
 	@Column(name = "created_date")
 	private Date createdDate = new Date();
 }
