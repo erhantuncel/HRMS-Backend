@@ -67,6 +67,13 @@ public class JobAdvert extends Base {
 	@NotNull
 	private City city;
 	
+	@ManyToOne
+	@JoinColumn(name = "job_type_id")
+	@NotNull
+	private JobType jobType;
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "work_location_id")
+	@NotNull
+	private WorkLocation workLocation;
 }

@@ -97,12 +97,34 @@ CREATE TABLE public.cities
     CONSTRAINT uc_cities_name UNIQUE (name)
 );
 
+CREATE TABLE public.work_locations
+(
+    id int NOT NULL,
+    name character varying(20) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_work_locations PRIMARY KEY (id),
+    CONSTRAINT uc_work_locations_name UNIQUE (name)
+);
+
+CREATE TABLE public.job_types
+(
+    id int NOT NULL,
+    name character varying(20) NOT NULL,
+    is_active boolean NOT NULL,
+    created_date timestamp without time zone NOT NULL,
+    CONSTRAINT pk_job_types PRIMARY KEY (id),
+    CONSTRAINT uc_job_types_name UNIQUE (name)
+);
+
 CREATE TABLE public.job_adverts
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     employer_id int NOT NULL,
     job_position_id int NOT NULL,
     city_id int NOT NULL,
+    work_location_id int NOT NULL,
+    job_type_id int NOT NULL,
     job_definition text NOT NULL,
     min_salary double precision,
     max_salary double precision,
@@ -113,7 +135,9 @@ CREATE TABLE public.job_adverts
     CONSTRAINT pk_job_adverts PRIMARY KEY (id),
     CONSTRAINT fk_job_adverts_employers FOREIGN KEY (employer_id) REFERENCES public.employers (employer_id) ON DELETE CASCADE,
     CONSTRAINT fk_job_adverts_job_positions FOREIGN KEY (job_position_id) REFERENCES public.job_positions (id) ON DELETE CASCADE,
-    CONSTRAINT fk_job_adverts_cities FOREIGN KEY (city_id) REFERENCES public.cities (id) ON DELETE CASCADE 
+    CONSTRAINT fk_job_adverts_cities FOREIGN KEY (city_id) REFERENCES public.cities (id) ON DELETE CASCADE,
+    CONSTRAINT fk_job_adverts_work_locations FOREIGN KEY (work_location_id) REFERENCES public.work_locations (id) ON DELETE CASCADE,
+    CONSTRAINT fk_job_adverts_job_types FOREIGN KEY (job_type_id) REFERENCES public.job_types (id) ON DELETE CASCADE
 );
 
 CREATE TABLE public.photos
@@ -303,6 +327,12 @@ INSERT INTO public.cities (id, name, is_active, created_date) VALUES (78, 'KARAB
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (79, 'KİLİS', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (80, 'OSMANİYE', true, CURRENT_TIMESTAMP);
 INSERT INTO public.cities (id, name, is_active, created_date) VALUES (81, 'DÜZCE', true, CURRENT_TIMESTAMP);
+-- Work Types
+INSERT INTO public.work_locations (id, name, is_active, created_date) VALUES (1, 'Ofis', true, CURRENT_TIMESTAMP);
+INSERT INTO public.work_locations (id, name, is_active, created_date) VALUES (2, 'Uzak', true, CURRENT_TIMESTAMP);
+-- Work Times
+INSERT INTO public.job_types (id, name, is_active, created_date) VALUES (1, 'Tam Zamanlı', true, CURRENT_TIMESTAMP);
+INSERT INTO public.job_types (id, name, is_active, created_date) VALUES (2, 'Yarı Zamanlı', true, CURRENT_TIMESTAMP);
 -- Social Media
 INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('Github', true, CURRENT_TIMESTAMP);
 INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('LinkedIn', true, CURRENT_TIMESTAMP);
