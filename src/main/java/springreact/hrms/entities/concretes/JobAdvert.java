@@ -13,9 +13,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -48,7 +45,6 @@ public class JobAdvert extends Base {
 	private int openPositionCount;
 	
 	@Column(name = "deadline")
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy")
 	@NotNull
 	private LocalDate deadline;
 	
