@@ -54,6 +54,12 @@ public class Resume extends Base {
 	@NotNull
 	private Photo photo;
 	
+	@Column(name = "github_url")
+	private String githubUrl;
+	
+	@Column(name = "linkedin_url")
+	private String linkedinUrl;
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
 	@OrderBy(value = "endDate desc")
@@ -67,10 +73,6 @@ public class Resume extends Base {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
 	private List<Language> languages;
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
-	private List<SocialMediaLink> socialMediaLinks;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)

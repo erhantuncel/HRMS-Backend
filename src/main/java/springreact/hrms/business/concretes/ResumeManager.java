@@ -16,7 +16,6 @@ import springreact.hrms.entities.concretes.JobPosition;
 import springreact.hrms.entities.concretes.Language;
 import springreact.hrms.entities.concretes.Resume;
 import springreact.hrms.entities.concretes.Skill;
-import springreact.hrms.entities.concretes.SocialMediaLink;
 
 @Service
 public class ResumeManager implements ResumeService {
@@ -63,11 +62,6 @@ public class ResumeManager implements ResumeService {
 		if(resume.getLanguages() != null) {			
 			for(Language language : resume.getLanguages()) {
 				language.setResume(resume);
-			}
-		}
-		if(resume.getSocialMediaLinks() != null) {			
-			for(SocialMediaLink socialMediaLink : resume.getSocialMediaLinks()) {
-				socialMediaLink.setResume(resume);
 			}
 		}
 		if(resume.getSkills() != null) {			

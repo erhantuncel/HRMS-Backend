@@ -168,6 +168,8 @@ CREATE TABLE public.resumes
     photo_id int NOT NULL,
     name character varying(30) NOT NULL,
     preface text NOT NULL,
+    github_url character varying(50),
+    linkedin_url character varying(50),
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_resumes PRIMARY KEY (id),
@@ -214,30 +216,6 @@ CREATE TABLE public.languages
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_languages PRIMARY KEY (id),
     CONSTRAINT fk_languages_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
-);
-
-CREATE TABLE public.social_medias
-(
-    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    name character varying(50) NOT NULL,
-    is_active boolean NOT NULL,
-    created_date timestamp without time zone NOT NULL,
-    CONSTRAINT pk_social_medias PRIMARY KEY (id),
-    CONSTRAINT uc_social_medias_name UNIQUE (name)
-);
-
-CREATE TABLE public.social_media_links
-(
-    id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    social_media_id int NOT NULL,
-    resume_id int NOT NULL,
-    url character varying(250) NOT NULL,
-    is_active boolean NOT NULL,
-    created_date timestamp without time zone NOT NULL,
-    CONSTRAINT pk_social_media_links PRIMARY KEY (id),
-    CONSTRAINT fk_social_media_links_social_medias FOREIGN KEY (social_media_id) REFERENCES public.social_medias (id) ON DELETE CASCADE,
-    CONSTRAINT fk_social_media_links_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE,
-    CONSTRAINT uc_social_media_links_url UNIQUE (url)
 );
 
 CREATE TABLE public.skills
@@ -347,6 +325,4 @@ INSERT INTO public.work_locations (name, is_active, created_date) VALUES ('Uzak'
 -- Work Times
 INSERT INTO public.job_types (name, is_active, created_date) VALUES ('Tam Zamanlı', true, CURRENT_TIMESTAMP);
 INSERT INTO public.job_types (name, is_active, created_date) VALUES ('Yarı Zamanlı', true, CURRENT_TIMESTAMP);
--- Social Media
-INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('Github', true, CURRENT_TIMESTAMP);
-INSERT INTO public.social_medias (name, is_active, created_date) VALUES ('LinkedIn', true, CURRENT_TIMESTAMP);
+
