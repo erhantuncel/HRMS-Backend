@@ -60,6 +60,9 @@ public class Resume extends Base {
 	@Column(name = "linkedin_url")
 	private String linkedinUrl;
 	
+	@Column(name = "skills")
+	private String skills;
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
 	@OrderBy(value = "endDate desc")
@@ -73,8 +76,4 @@ public class Resume extends Base {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
 	private List<Language> languages;
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
-	private List<Skill> skills;
 }

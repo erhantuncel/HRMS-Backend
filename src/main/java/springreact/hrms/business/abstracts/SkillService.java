@@ -7,6 +7,6 @@ import springreact.hrms.entities.concretes.Skill;
 
 public interface SkillService {
 
+	DataResult<List<Skill>> getAll();
 	DataResult<Skill> save(Skill skill);
-	DataResult<List<Skill>> findByResumeId(int resumeId, boolean isActive);
 }

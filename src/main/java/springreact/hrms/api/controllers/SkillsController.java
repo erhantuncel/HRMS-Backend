@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,13 +27,13 @@ public class SkillsController {
 		this.skillService = skillService;
 	}
 	
+	@GetMapping(path = "/getall")
+	public ResponseEntity<?> getAllSkills() {
+		return ResponseEntity.ok(skillService.getAll());
+	}
+	
 	@PostMapping(path = "/add")
 	public ResponseEntity<?> saveSkill(@RequestBody @Valid Skill skill) {
 		return ResponseEntity.ok(this.skillService.save(skill));
-	}
-	
-	@GetMapping(path = "/getall-by-resume-id/{id}")
-	public ResponseEntity<?> getAllSkillsByResumeId(@PathVariable("id") int id) {
-		return ResponseEntity.ok(this.skillService.findByResumeId(id, true));
 	}
 }

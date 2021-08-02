@@ -23,15 +23,14 @@ public class SkillManager implements SkillService {
 	}
 
 	@Override
+	public DataResult<List<Skill>> getAll() {
+		List<Skill> skills = skillDao.findAll();
+		return new SuccessDataResult<List<Skill>>(skills, "Skills are listed.");
+	}
+	
+	@Override
 	public DataResult<Skill> save(Skill skill) {
 		Skill savedSkill = this.skillDao.save(skill);
 		return new SuccessDataResult<Skill>(savedSkill, "Skill is saved to db.");
 	}
-
-	@Override
-	public DataResult<List<Skill>> findByResumeId(int resumeId, boolean isActive) {
-		List<Skill> skills = this.skillDao.findByResumeIdAndIsActive(resumeId, true);
-		return new SuccessDataResult<List<Skill>>(skills, "Skills are listed.");
-	}
-
 }
