@@ -170,6 +170,7 @@ CREATE TABLE public.resumes
     preface text NOT NULL,
     github_url character varying(50),
     linkedin_url character varying(50),
+    skills character varying(300),
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
     CONSTRAINT pk_resumes PRIMARY KEY (id),
@@ -221,12 +222,10 @@ CREATE TABLE public.languages
 CREATE TABLE public.skills
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
-    resume_id int NOT NULL,
     name character varying(50) NOT NULL,
     is_active boolean NOT NULL,
     created_date timestamp without time zone NOT NULL,
-    CONSTRAINT pk_skills PRIMARY KEY (id),
-    CONSTRAINT fk_skills_resumes FOREIGN KEY (resume_id) REFERENCES public.resumes (id) ON DELETE CASCADE
+    CONSTRAINT pk_skills PRIMARY KEY (id)
 );
 
 
@@ -325,4 +324,8 @@ INSERT INTO public.work_locations (name, is_active, created_date) VALUES ('Uzak'
 -- Work Times
 INSERT INTO public.job_types (name, is_active, created_date) VALUES ('Tam Zamanlı', true, CURRENT_TIMESTAMP);
 INSERT INTO public.job_types (name, is_active, created_date) VALUES ('Yarı Zamanlı', true, CURRENT_TIMESTAMP);
-
+-- Skills
+INSERT INTO public.skills(name, is_active, created_date) VALUES ('Java', true, CURRENT_TIMESTAMP);
+INSERT INTO public.skills(name, is_active, created_date) VALUES ('C#', true, CURRENT_TIMESTAMP);
+INSERT INTO public.skills(name, is_active, created_date) VALUES ('Angular', true, CURRENT_TIMESTAMP);
+INSERT INTO public.skills(name, is_active, created_date) VALUES ('React', true, CURRENT_TIMESTAMP);
