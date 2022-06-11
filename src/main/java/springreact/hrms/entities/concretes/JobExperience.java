@@ -43,13 +43,15 @@ public class JobExperience extends Base {
 	
 	@Column(name = "start_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
+//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd", timezone="Europe/Istanbul")
 	@NotNull
 	private Date startDate;
 	
 	@Column(name = "end_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
+//	@JsonFormat(shape = Shape.STRING, pattern = "dd.MM.yyyy", timezone="Europe/Istanbul")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd", timezone="Europe/Istanbul")
 	private Date endDate;
 	
 	@ManyToOne
