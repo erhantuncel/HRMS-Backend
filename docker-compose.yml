@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  postgresql:
+    restart: always
+    image: postgres:alpine
+    container_name: postgres-container
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: hrms
+    ports:
+      - 5432:5432
+    volumes:
+      - ./hrms-db-schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/data:/var/lib/postgresql/data
+  spring-boot-rest:
+    restart: always
+    depends_on:
+      - postgresql
+    build: .
+    container_name: spring-boot-rest
+    ports:
+      - 8080:8080
+volumes:
+  data:
