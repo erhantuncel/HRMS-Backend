@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Only Local ###
+zOnlyLocal
+db/data
