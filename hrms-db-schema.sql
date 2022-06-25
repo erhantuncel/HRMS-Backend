@@ -165,7 +165,7 @@ CREATE TABLE public.resumes
 (
     id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     candidate_id int NOT NULL,
-    photo_id int NOT NULL,
+    photo_id int,
     name character varying(30) NOT NULL,
     preface text NOT NULL,
     github_url character varying(50),

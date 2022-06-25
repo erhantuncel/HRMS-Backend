@@ -49,9 +49,8 @@ public class Resume extends Base {
 	@NotEmpty
 	private String preface;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "photo_id")
-	@NotNull
 	private Photo photo;
 	
 	@Column(name = "github_url")

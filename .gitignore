@@ -35,3 +35,4 @@ build/
 ### Only Local ###
 zOnlyLocal
 db/data
+application-dev.properties
