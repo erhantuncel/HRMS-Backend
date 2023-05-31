@@ -1,4 +1,4 @@
-FROM openjdk:13-alpine3.9
+FROM adoptopenjdk:13.0.2_8-jre-hotspot-bionic
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
